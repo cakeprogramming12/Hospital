@@ -1,0 +1,43 @@
+body {
+    margin: 0; /* Elimina el margen predeterminado del cuerpo */
+    height: 100vh; /* Establece la altura del cuerpo al 100% del viewport height */
+    background: linear-gradient(to bottom, #ffffff, #a2d3c2);
+    display: flex; /* Permite que el cuerpo ocupe todo el viewport height */
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+    color: #333333; /* Color del texto */
+}
+
+
+
+.caja-login{
+    background-color: #ffffff;
+    max-width:350px;
+    margin:0 auto;
+    padding:2% 0 0;
+    margin-top: 5%;
+}
+.formulario-login-cabecera{
+    /*background-color: #F00;*/
+    padding-top:8px;
+    width:100%;
+}
+.formulario-login{
+    box-shadow: 0 0 35px rgba(90,90,90,0.5);
+    width:100%;
+    /*background-color: #FF0;*/
+}
+.formulario-login-cabecera-fuente{
+    font-size:22px;
+    font-weight: bold;
+
+}
+.login-elements{
+
+    padding-top:16px;
+    padding-bottom:16px;
+    width:100%;
+}
+.formulario-login-cabecera-fuente span{
+    color:#007C9B;
+}

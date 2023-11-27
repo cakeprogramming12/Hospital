@@ -1,2 +1,2 @@
 ruta del servidor local
-http://localhost/Ramiro%20projectos/Hospital/index.html
+http://localhost/Ramiro%20projectos/Proyecto Base de datos/index.html
