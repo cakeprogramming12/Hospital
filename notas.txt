@@ -1,2 +1,23 @@
 ruta del servidor local
 http://localhost/Ramiro%20projectos/Proyecto Base de datos/index.html
+
+//cargar la base de datos en sesion.php 
+
+
+
+
+
+
+
+//codigo de experimento
+<?php
+
+/*
+usamos la variable sesion para redirigirnos a otra sesion
+*/
+session_start();
+$user=$_SESSION['nombre_usuario'];
+
+echo "<h2>Bienvenido $user </h2>";
+
+?>
