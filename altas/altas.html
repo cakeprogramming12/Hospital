@@ -21,7 +21,7 @@ $user = isset($_SESSION['nombre_usuario']) ? $_SESSION['nombre_usuario'] : "Invi
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../tablero/css/style.css">
 
     <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,700&display=swap" rel="stylesheet">
@@ -29,6 +29,8 @@ $user = isset($_SESSION['nombre_usuario']) ? $_SESSION['nombre_usuario'] : "Invi
     <!-- Ionic icons -->
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
 
+    <!-- Script que nos permite cargar paguinas diferentes dentro de la misma -->
+    <script src="cargarContenido.js"></script>
     <title>Panel principal</title>
 </head>
 
@@ -41,11 +43,12 @@ $user = isset($_SESSION['nombre_usuario']) ? $_SESSION['nombre_usuario'] : "Invi
                 <h4 class="text-light font-weight-bold mb-0">Hospital</h4>
             </div>
             <div class="menu">
-                <a href="tablero.php" class="d-block text-light p-3 border-0"><i class="icon ion-md-apps lead mr-2"></i>
+                <a href="../tablero/tablero.php" class="d-block text-light p-3 border-0"><i class="icon ion-md-apps lead mr-2"></i>
                     Tablero</a>
 
-                <a href="../altas/altas.html" class="d-block text-light p-3 border-0"><i class="icon ion-md-stats lead mr-2"></i>
-                    Altas</a>
+
+                    <a href="altas.html" class="d-block text-light p-3 border-0"><i class="icon ion-md-stats lead mr-2"></i>
+                        Altas</a>
 
 
                 <a href="#" class="d-block text-light p-3 border-0"><i class="icon ion-md-stats lead mr-2"></i>
@@ -95,8 +98,9 @@ $user = isset($_SESSION['nombre_usuario']) ? $_SESSION['nombre_usuario'] : "Invi
         </nav>
         <!-- Fin Navbar -->
 
-        <!-- Page Content -->
-        <div id="content" class="bg-grey w-100">
+        <!-- bienvenida -->
+<div id="content" class="bg-grey w-100">
+
 
 <section class="bg-light py-3">
     <div class="container">
@@ -112,50 +116,15 @@ $user = isset($_SESSION['nombre_usuario']) ? $_SESSION['nombre_usuario'] : "Invi
     </div>
 </section>
 
-            <section class="bg-mix py-3">
-                <div class="container">
-                    <div class="card rounded-0">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6 d-flex stat my-3">
-                                    <div class="mx-auto">
-                                        <h6 class="text-muted">tabla 1</h6>
-                                        <h3 class="font-weight-bold">1000000</h3>
-                                        <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 50.50%</h6>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 d-flex stat my-3">
-                                    <div class="mx-auto">
-                                        <h6 class="text-muted">TABLA 2</h6>
-                                        <h3 class="font-weight-bold">1000000</h3>
-                                        <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 25.50%</h6>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 d-flex stat my-3">
-                                    <div class="mx-auto">
-                                        <h6 class="text-muted">Tabla 3</h6>
-                                        <h3 class="font-weight-bold">1000000</h3>
-                                        <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 75.50%</h6>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 d-flex my-3">
-                                    <div class="mx-auto">
-                                        <h6 class="text-muted">Tabla 4</h6>
-                                        <h3 class="font-weight-bold">1000000</h3>
-                                        <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 15.50%</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-        </div>
+<!-- formulario -->
+<section class="bg-mix py-3">
 
-        </div>
-    </div>
+</section>
+
+
+
+</div>
 
 </body>
-
 </html>
