@@ -1,7 +1,9 @@
 <?php
 
-require 'conexion.php';
+#usamos la conexion
+require '../conexionphp/conexion.php';
 
+#por si se ocupa
 session_start();
 
 /*
