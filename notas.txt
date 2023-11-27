@@ -1,0 +1,2 @@
+ruta del servidor local
+http://localhost/Ramiro%20projectos/Hospital/index.html
