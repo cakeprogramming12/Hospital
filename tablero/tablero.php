@@ -1,3 +1,11 @@
+<?php
+/*manejar la información de la sesión del usuario para personalizar la 
+página web 
+*/
+session_start();
+$user = isset($_SESSION['nombre_usuario']) ? $_SESSION['nombre_usuario'] : "Invitado";
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -42,7 +50,7 @@
                 <a href="#" class="d-block text-light p-3 border-0"><i class="icon ion-md-person lead mr-2"></i>
                     Consultas</a>
                     <a href="#" class="d-block text-light p-3 border-0"><i class="icon ion-md-person lead mr-2"></i>
-                      Reportes</a>
+                    Reportes</a>
 
                 <a href="#" class="d-block text-light p-3 border-0"> <i class="icon ion-md-settings lead mr-2"></i>
                     Configuración</a>
@@ -52,56 +60,56 @@
 
         <div class="w-100">
 
-         <!-- Navbar -->
-         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
             <div class="container">
     
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-              </button>
+            </button>
     
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <form class="form-inline position-relative d-inline-block my-2">
-                  <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar">
-                  <button class="btn position-absolute btn-search" type="submit"><i class="icon ion-md-search"></i></button>
+                <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar">
+                <button class="btn position-absolute btn-search" type="submit"><i class="icon ion-md-search"></i></button>
                 </form>
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                  <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     administrador
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="#">Mi perfil</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Cerrar sesión</a>
+                    <a class="dropdown-item" href="#">Mi perfil</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Cerrar sesión</a>
                     </div>
-                  </li>
+                </li>
                 </ul>
-              </div>
             </div>
-          </nav>
-          <!-- Fin Navbar -->
+            </div>
+        </nav>
+        <!-- Fin Navbar -->
 
         <!-- Page Content -->
         <div id="content" class="bg-grey w-100">
 
-              <section class="bg-light py-3">
-                  <div class="container">
-                      <div class="row">
-                          <div class="col-lg-9 col-md-8">
-                            <h1 class="font-weight-bold mb-0">Bienvenido</h1>
-                            <p class="lead text-muted">Resumen de la base de datos</p>
-                          </div>
-                          <div class="col-lg-3 col-md-4 d-flex">
-                            <button class="btn btn-primary w-100 align-self-center">Descargar reporte</button>
-                          </div>
-                      </div>
-                  </div>
-              </section>
+<section class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-8">
+                <h1 class="font-weight-bold mb-0">Bienvenido usuario <?php echo $user; ?></h1>
+                <p class="lead text-muted">Resumen de la base de datos</p>
+            </div>
+            <div class="col-lg-3 col-md-4 d-flex">
+                <button class="btn btn-primary w-100 align-self-center">Descargar reporte</button>
+            </div>
+        </div>
+    </div>
+</section>
 
-              <section class="bg-mix py-3">
+            <section class="bg-mix py-3">
                 <div class="container">
                     <div class="card rounded-0">
                         <div class="card-body">

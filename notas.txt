@@ -5,5 +5,3 @@ http://localhost/Ramiro%20projectos/Proyecto%20Base%20de%20datos/principal/index
 Para ello debemos configuar desde xampp el archivo php.init
 y desdomentamos la opcion de postgresql
 
-
-

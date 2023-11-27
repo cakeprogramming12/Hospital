@@ -28,7 +28,7 @@ if($cantidad>0){
     #variable de sesion, para poder usarlo en otra paguina
 	$_SESSION['nombre_usuario']=$usuario;
 	#nos dirige a otra paguina
-    header('Location:../tablero/tablero.html');
+    header('Location:../tablero/tablero.php');
 }
 #los datos estan mal
 else{
