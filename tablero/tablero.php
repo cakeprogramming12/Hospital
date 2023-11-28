@@ -1,161 +1,96 @@
-<?php
-/*manejar la información de la sesión del usuario para personalizar la 
-página web 
-
-lo use para imprimir el nombre de usuario
-*/
-session_start();
-$user = isset($_SESSION['nombre_usuario']) ? $_SESSION['nombre_usuario'] : "Invitado";
-?>
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrar Sistema| Inicio </title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="shortcut icon" href="assets/dist/img/logo_sistema_favicon.png" type="image/x-icon">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/style.css">
 
-    <!-- Google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,700&display=swap" rel="stylesheet">
+    <!-- ESTILOS -->
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="assets/dist/css/adminlte.css">
 
-    <!-- Ionic icons -->
-    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="assets/dist/css/index.css">
 
-    <title>Panel principal</title>
+        <!-- CSS PARA DATATABLES -->    
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+
+
+    <!-- SCRIPT -->
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+
+        <!-- jQuery -->
+        <script src="assets/plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="assets/plugins/bootstrap/js/bootstrap.bundle.js"></script>
+        <!-- AdminLTE App -->
+        <script src="assets/dist/js/adminlte.js"></script>
+        
+        <!-- Datatable js -->
+        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+
+
 </head>
 
-<body>
-    <div class="d-flex" id="content-wrapper">
+<body class="hold-transition sidebar-mini">
 
-        <!-- Sidebar -->
-        <div id="sidebar-container" class="bg-primary">
-            <div class="logo">
-                <h4 class="text-light font-weight-bold mb-0">Hospital</h4>
-            </div>
-            <div class="menu">
-                <a href="tablero.php" class="d-block text-light p-3 border-0"><i class="icon ion-md-apps lead mr-2"></i>
-                    Tablero</a>
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        
 
-                <a href="../altas/altas.html" class="d-block text-light p-3 border-0"><i class="icon ion-md-stats lead mr-2"></i>
-                    Altas</a>
+<?php
 
 
-                <a href="#" class="d-block text-light p-3 border-0"><i class="icon ion-md-stats lead mr-2"></i>
-                    Bajas</a>
-                <a href="#" class="d-block text-light p-3 border-0"><i class="icon ion-md-person lead mr-2"></i>
-                    Consultas</a>
-                    <a href="#" class="d-block text-light p-3 border-0"><i class="icon ion-md-person lead mr-2"></i>
-                    Reportes</a>
+            /*===================================================================
+            MENU LATERAL
+            ====================================================================*/
+            include "modulos/layout/sidebar_lateral.php";
 
-                <a href="#" class="d-block text-light p-3 border-0"> <i class="icon ion-md-settings lead mr-2"></i>
-                    Configuración</a>
-            </div>
-        </div>
-        <!-- Fin sidebar -->
+            /*===================================================================
+            CONTENIDO DE LA PAGINA
+            ====================================================================*/
+            
+            // content-wrapper  TODO ESTO ES PARA QUE LA PAGUINA MUESTRE VARIAS PAGUINAS EN UBNA
+            echo '<div class="content-wrapper">';
+        
+                include "modulos/pagina_en_blanco.php";
+                
+            echo '</div>';
 
-        <div class="w-100">
+            // .content-wrapper
 
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <div class="container">
-    
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-    
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="form-inline position-relative d-inline-block my-2">
-                <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar">
-                <button class="btn position-absolute btn-search" type="submit"><i class="icon ion-md-search"></i></button>
-                </form>
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    administrador
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Mi perfil</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Cerrar sesión</a>
-                    </div>
-                </li>
-                </ul>
-            </div>
-            </div>
-        </nav>
-        <!-- Fin Navbar -->
 
-        <!-- Page Content -->
-        <div id="content" class="bg-grey w-100">
+            // ===================================================================
+            // FOOTER
+            // ====================================================================
+            include "modulos/layout/footer.php";
+            
+        ?> 
 
-<section class="bg-light py-3">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9 col-md-8">
-                <h1 class="font-weight-bold mb-0">Bienvenido usuario <?php echo $user; ?></h1>
-                <p class="lead text-muted">Resumen de la base de datos</p>
-            </div>
-            <div class="col-lg-3 col-md-4 d-flex">
-                <button class="btn btn-primary w-100 align-self-center">Descargar reporte</button>
-            </div>
-        </div>
     </div>
-</section>
 
-            <section class="bg-mix py-3">
-                <div class="container">
-                    <div class="card rounded-0">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6 d-flex stat my-3">
-                                    <div class="mx-auto">
-                                        <h6 class="text-muted">tabla 1</h6>
-                                        <h3 class="font-weight-bold">1000000</h3>
-                                        <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 50.50%</h6>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 d-flex stat my-3">
-                                    <div class="mx-auto">
-                                        <h6 class="text-muted">TABLA 2</h6>
-                                        <h3 class="font-weight-bold">1000000</h3>
-                                        <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 25.50%</h6>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 d-flex stat my-3">
-                                    <div class="mx-auto">
-                                        <h6 class="text-muted">Tabla 3</h6>
-                                        <h3 class="font-weight-bold">1000000</h3>
-                                        <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 75.50%</h6>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 d-flex my-3">
-                                    <div class="mx-auto">
-                                        <h6 class="text-muted">Tabla 4</h6>
-                                        <h3 class="font-weight-bold">1000000</h3>
-                                        <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 15.50%</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <!-- ./wrapper -->
+    <script src="assets/dist/js/demo.js"></script>
 
-        </div>
-
-        </div>
-    </div>
+    <!-- codigo para hacer EL TABLERO dinamicO Y QUE SE MUESTRE  EN LA MISMA PAGINA -->
+    <script>
+        function cargarContenido(contenedor,contenido){
+        $("."+contenedor).load(contenido);
+    }
+    </script>
 
 </body>
-
 </html>
