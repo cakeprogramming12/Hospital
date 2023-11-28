@@ -2,7 +2,7 @@
 #servidor
 $host='localhost';
 #nombre base de datos
-$bd='bd_ramiroprueba';
+$bd='HospitalFinal';
 #usuario
 $user='postgres';
 #password

@@ -207,7 +207,22 @@ FOREIGN KEY (Id_paciente) REFERENCES pacientes(Id_paciente),
 FOREIGN KEY (Id_departamento) REFERENCES departamentos(Id_departamento));
 
 
+/*
+Cree la tabla usuarios
+*/
 
+
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    usuario VARCHAR(255) NOT NULL,
+    contrasena VARCHAR(255) NOT NULL
+);
+
+INSERT INTO usuarios (usuario, contrasena) VALUES ('ramiro', '123');
+
+/*
+Particiones nicoles
+*/
 CREATE TABLE expediente(
 Id_expediente INT PRIMARY KEY,
 Diagnosticos VARCHAR(50) NOT NULL,
