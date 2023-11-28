@@ -226,3 +226,5 @@ LANGUAGE plpgsql;
 CREATE TRIGGER Tr_Update_RFC_H AFTER UPDATE ON hospital
 FOR EACH ROW
 EXECUTE PROCEDURE FK_Update();
+
+create table usuarios (usuario varchar(30) not null,contrasena varchar (30));
