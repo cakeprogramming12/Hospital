@@ -66,7 +66,7 @@
             // content-wrapper  TODO ESTO ES PARA QUE LA PAGUINA MUESTRE VARIAS PAGUINAS EN UBNA
             echo '<div class="content-wrapper">';
         
-                include "modulos/pagina_en_blanco.php";
+                include "modulos/resumenbd.php";
                 
             echo '</div>';
 
