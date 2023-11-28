@@ -1,5 +1,4 @@
 <?php
-
 #servidor
 $host='localhost';
 #nombre base de datos
