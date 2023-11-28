@@ -99,6 +99,14 @@ cantidad INT NOT NULL,
 Id_producto INT,
 FOREIGN KEY (Id_producto) REFERENCES Producto(Id_producto));
 
+CREATE TABLE historial_cuenta_servicios(
+Id_cuenta_serv INT PRIMARY KEY,
+concepto VARCHAR(30) NOT NULL,
+fecha_cargo DATE NOT NULL,
+cantidad INT NOT NULL,
+Id_servicios INT,
+FOREIGN KEY (Id_servicios) REFERENCES Servicios(Id_servicio));
+
 CREATE TABLE facturacion(
 Id_factura INT PRIMARY KEY,
 fecha DATE NOT NULL,
