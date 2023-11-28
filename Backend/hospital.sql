@@ -225,3 +225,20 @@ CREATE TABLE expediente_2022 PARTITION OF expediente FOR VALUES FROM ('2022-01-0
 TO ('2022-12-31');
 CREATE TABLE expediente_2023 PARTITION OF expediente FOR VALUES FROM ('2023-01-01')
 TO ('2023-12-31');
+
+
+
+CREATE FUNCTION FK_Update() RETURNS TRIGGER
+as
+$$
+BEGIN
+UPDATE pacientes
+SET rfc_hospital = new.rfc_hospital;
+return new;
+END
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER Tr_Update_RFC_H AFTER UPDATE ON hospital
+FOR EACH ROW
+EXECUTE PROCEDURE FK_Update();
