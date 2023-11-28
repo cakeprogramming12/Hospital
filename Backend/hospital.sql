@@ -1,5 +1,5 @@
 CREATE SCHEMA Hospital;
-alasjjd
+
 CREATE TABLE Hospital(RFC_hospital VARCHAR (13) PRIMARY KEY,
 Nombre VARCHAR(50) NOT NULL,
 Direccion VARCHAR(60) NOT NULL,

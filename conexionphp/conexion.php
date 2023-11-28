@@ -3,11 +3,11 @@
 #servidor
 $host='localhost';
 #nombre base de datos
-$bd='as';
+$bd='postgres';
 #usuario
 $user='postgres';
 #password
-$pass='as';
+$pass='7109';
 
 $conexion=pg_connect("host=$host dbname=$bd user=$user password=$pass");
 
