@@ -3,7 +3,7 @@
 #servidor
 $host='localhost';
 #nombre base de datos
-$bd='postgre';
+$bd='postgres';
 #usuario
 $user='postgres';
 #password
