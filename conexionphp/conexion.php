@@ -12,3 +12,4 @@ $pass='7109';
 $conexion=pg_connect("host=$host dbname=$bd user=$user password=$pass");
 
 ?>
+asasasas
