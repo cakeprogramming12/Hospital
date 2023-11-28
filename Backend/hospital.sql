@@ -196,23 +196,6 @@ Descripcion VARCHAR(150) NOT NULL,
 Id_paciente INT,
 Id_departamento INT,
 FOREIGN KEY (Id_paciente) REFERENCES pacientes(Id_paciente),
-FOREIGN KEY (Id_departamento) REFERENCES departamentos(Id_departamento));
-
-
-
-CREATE TABLE expediente(
-Id_expediente INT PRIMARY KEY,
-Diagnosticos VARCHAR(50) NOT NULL,
-Tratamientos VARCHAR(50) NOT NULL,
-Intervenciones_quirurgicas VARCHAR(50) NOT NULL,
-Sintomas VARCHAR (50) NOT NULL,
-Antecedentes VARCHAR(100) NOT NULL,
-F_ingreso DATE NOT NULL,
-F_egreso DATE,
-Descripcion VARCHAR(150) NOT NULL,
-Id_paciente INT,
-Id_departamento INT,
-FOREIGN KEY (Id_paciente) REFERENCES pacientes(Id_paciente),
 FOREIGN KEY (Id_departamento) REFERENCES departamentos(Id_departamento))
 PARTITION BY RANGE (F_ingreso);
 
