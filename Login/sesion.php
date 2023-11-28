@@ -14,8 +14,8 @@ $clave=$_POST['pass'];
 
 
 #hacemos la consulta a la tabla que contenga los usuarios
-$query=("SELECT * FROM usuarios 
-	WHERE usuario='$usuario' AND contrasena='$clave'");
+$query=("set search_path to Hospital;SELECT * FROM usuarios 
+	WHERE usuario='$usuario' AND contrasena='$clave';");
 
 #Ejecutamos la consulta, pasando la conexion y el query
 $consulta=pg_query($conexion,$query);
