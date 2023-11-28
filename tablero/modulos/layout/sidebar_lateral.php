@@ -263,11 +263,44 @@
                                 <p>Servicios</p>
                             </a>
                         </li>
+                    </ul>
+                </li>
 
 
+
+
+
+
+
+                <!-- Configuracion-->
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-hospital nav-icon"></i>
+                        <p>
+                            Configuracion
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a onclick="cargarContenido('content-wrapper','modulos/categorias.php')" class="nav-link"
+                                style="cursor: pointer;">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Usuarios</p>
+                            </a>
+                        </li>
 
                     </ul>
                 </li>
+
+
+
+
+
+
+
 
 
 
