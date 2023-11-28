@@ -11,5 +11,5 @@ $pass='basedatos';
 
 $conexion=pg_connect("host=$host dbname=$bd user=$user password=$pass");
 
-
+hola rami
 ?>
