@@ -12,4 +12,4 @@ $pass='7109';
 $conexion=pg_connect("host=$host dbname=$bd user=$user password=$pass");
 
 ?>
-121221212
+3232323323333
