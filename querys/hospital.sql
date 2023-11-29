@@ -82,8 +82,65 @@ No_Piso INT PRIMARY KEY,
 Hab_cama Varchar(10) NOT NULL,
 Especialidad VARCHAR (30) NOT NULL);
 
+# 1ra tabla
+CREATE TABLE nuevos_pisos (
+    id SERIAL NOT NULL,
+    No_Piso INT NOT NULL,
+    Hab_cama VARCHAR(10) NOT NULL,
+    Especialidad VARCHAR(30) NOT NULL,
+    insertado_el TIMESTAMP(6) NOT NULL
+);
+# 2da tabla
+CREATE TABLE eliminados_pisos (
+    Id SERIAL NOT NULL,
+    No_Piso INT NOT NULL,
+    Hab_cama VARCHAR(10) NOT NULL,
+    Especialidad VARCHAR(30) NOT NULL,
+    Eliminado_el TIMESTAMP(6) NOT NULL
+);
+# Funcion para Trigger Insertar
+CREATE OR REPLACE FUNCTION agregar_nuevo_piso()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+    IF NEW.No_Piso IS NOT NULL THEN
+        INSERT INTO nuevos_pisos (No_Piso, Hab_cama, Especialidad, insertado_el)
+        VALUES (NEW.No_Piso, NEW.Hab_cama, NEW.Especialidad, NOW());
+    END IF;
+    RETURN NEW;
+END;
+$$;
+#Trigger Insertar
+CREATE OR REPLACE TRIGGER trigger_nuevo_piso
+BEFORE INSERT
+ON Pisos
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_nuevo_piso();
+
+
+# Funcion para Trigger eliminar
+CREATE OR REPLACE FUNCTION agregar_eliminado_piso()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+    IF OLD.No_Piso IS NOT NULL THEN
+        INSERT INTO eliminados_pisos (No_Piso, Hab_cama, Especialidad, eliminado_el)
+        VALUES (OLD.No_Piso, OLD.Hab_cama, OLD.Especialidad, NOW());
+    END IF;
+    RETURN OLD;
+END;
+$$;
+# Trigger eliminar
+CREATE OR REPLACE TRIGGER trigger_eliminado_piso
+AFTER DELETE
+ON Pisos
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_eliminado_piso();
+
 CREATE TABLE Pacientes(
-Id_Paciente SERIAL NOT NULL PRIMARY KEY,
+Id_Paciente INT PRIMARY KEY,
 Nombre VARCHAR(20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Fec_Nac DATE NOT NULL,
@@ -95,8 +152,81 @@ RFC_HOSPITAL VARCHAR(13),
 FOREIGN KEY (No_Piso) REFERENCES Pisos(No_Piso),
 FOREIGN KEY (RFC_hospital) REFERENCES hospital(RFC_hospital));
 
+# 1ra tabla
+CREATE TABLE nuevos_pacientes (
+    Id SERIAL NOT NULL,
+    Id_Paciente INT NOT NULL,
+    Nombre VARCHAR(20) NOT NULL,
+    Apellido VARCHAR(20) NOT NULL,
+    Fec_Nac DATE NOT NULL,
+    Sexo VARCHAR(1) NOT NULL,
+    Telefono BIGINT NOT NULL,
+    Direccion VARCHAR(60) NOT NULL,
+    No_Piso INT,
+    RFC_HOSPITAL VARCHAR(13),
+    Insertado_el TIMESTAMP(6) NOT NULL
+);
+
+
+# 2da tabla
+CREATE TABLE eliminados_pacientes (
+    Id SERIAL NOT NULL,
+    Id_Paciente INT NOT NULL,
+    Nombre VARCHAR(20) NOT NULL,
+    Apellido VARCHAR(20) NOT NULL,
+    Fec_Nac DATE NOT NULL,
+    Sexo VARCHAR(1) NOT NULL,
+    Telefono BIGINT NOT NULL,
+    Direccion VARCHAR(60) NOT NULL,
+    No_Piso INT,
+    RFC_HOSPITAL VARCHAR(13),
+    Eliminado_el TIMESTAMP(6) NOT NULL
+);
+
+
+# Funcion para Trigger Insertar
+CREATE OR REPLACE FUNCTION agregar_nuevo_paciente()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+    IF NEW.Id_Paciente IS NOT NULL THEN
+        INSERT INTO nuevos_pacientes (Id_Paciente, Nombre, Apellido, Fec_Nac, Sexo, Telefono, Direccion, No_Piso, RFC_HOSPITAL, insertado_el)
+        VALUES (NEW.Id_Paciente, NEW.Nombre, NEW.Apellido, NEW.Fec_Nac, NEW.Sexo, NEW.Telefono, NEW.Direccion, NEW.No_Piso, NEW.RFC_HOSPITAL, NOW());
+    END IF;
+    RETURN NEW;
+END;
+$$;
+# Trigger Insertar
+CREATE OR REPLACE TRIGGER trigger_nuevo_paciente
+BEFORE INSERT
+ON Pacientes
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_nuevo_paciente();
+
+
+# Funcion para Trigger eliminar
+CREATE OR REPLACE FUNCTION agregar_eliminado_paciente()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+    IF OLD.Id_Paciente IS NOT NULL THEN
+        INSERT INTO eliminados_pacientes (Id_Paciente, Nombre, Apellido, Fec_Nac, Sexo, Telefono, Direccion, No_Piso, RFC_HOSPITAL, eliminado_el)
+        VALUES (OLD.Id_Paciente, OLD.Nombre, OLD.Apellido, OLD.Fec_Nac, OLD.Sexo, OLD.Telefono, OLD.Direccion, OLD.No_Piso, OLD.RFC_HOSPITAL, NOW());
+    END IF;
+    RETURN OLD;
+END;
+$$;
+# Trigger eliminar
+CREATE OR REPLACE TRIGGER trigger_eliminado_paciente
+AFTER DELETE
+ON Pacientes
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_eliminado_paciente();
+
 CREATE TABLE Responsable(
-Id_Responsable SERIAL NOT NULL PRIMARY KEY,
+Id_Responsable INT PRIMARY KEY,
 Nombre VARCHAR (20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Fec_Nac DATE NOT NULL,
@@ -106,6 +236,79 @@ Direccion VARCHAR(60) NOT NULL,
 RFC VARCHAR(12) NOT NULL,
 Id_paciente INT,
 FOREIGN KEY (Id_paciente) REFERENCES Pacientes(Id_paciente));
+
+# 1ra tabla
+CREATE TABLE nuevos_responsables (
+    id SERIAL NOT NULL,
+    Id_Responsable INT NOT NULL,
+    Nombre VARCHAR(20) NOT NULL,
+    Apellido VARCHAR(20) NOT NULL,
+    Fec_Nac DATE NOT NULL,
+    Sexo VARCHAR(1) NOT NULL,
+    Telefono BIGINT NOT NULL,
+    Direccion VARCHAR(60) NOT NULL,
+    RFC VARCHAR(12) NOT NULL,
+    Id_paciente INT,
+    insertado_el TIMESTAMP(6) NOT NULL
+);
+
+
+# 2da tabla
+CREATE TABLE eliminados_responsables (
+    Id SERIAL NOT NULL,
+    Id_Responsable INT NOT NULL,
+    Nombre VARCHAR(20) NOT NULL,
+    Apellido VARCHAR(20) NOT NULL,
+    Fec_Nac DATE NOT NULL,
+    Sexo VARCHAR(1) NOT NULL,
+    Telefono BIGINT NOT NULL,
+    Direccion VARCHAR(60) NOT NULL,
+    RFC VARCHAR(12) NOT NULL,
+    Id_paciente INT,
+    Eliminado_el TIMESTAMP(6) NOT NULL
+);
+
+
+# Funcion para Trigger Insertar
+CREATE OR REPLACE FUNCTION agregar_nuevo_responsable()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+    IF NEW.Id_Responsable IS NOT NULL THEN
+        INSERT INTO nuevos_responsables (Id_Responsable, Nombre, Apellido, Fec_Nac, Sexo, Telefono, Direccion, RFC, Id_paciente, insertado_el)
+        VALUES (NEW.Id_Responsable, NEW.Nombre, NEW.Apellido, NEW.Fec_Nac, NEW.Sexo, NEW.Telefono, NEW.Direccion, NEW.RFC, NEW.Id_paciente, NOW());
+    END IF;
+    RETURN NEW;
+END;
+$$;
+# Trigger Insertar
+CREATE OR REPLACE TRIGGER trigger_nuevo_responsable
+BEFORE INSERT
+ON Responsable
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_nuevo_responsable();
+
+
+# Funcion para Trigger eliminar
+CREATE OR REPLACE FUNCTION agregar_eliminado_responsable()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+    IF OLD.Id_Responsable IS NOT NULL THEN
+        INSERT INTO eliminados_responsables (Id_Responsable, Nombre, Apellido, Fec_Nac, Sexo, Telefono, Direccion, RFC, Id_paciente, eliminado_el)
+        VALUES (OLD.Id_Responsable, OLD.Nombre, OLD.Apellido, OLD.Fec_Nac, OLD.Sexo, OLD.Telefono, OLD.Direccion, OLD.RFC, OLD.Id_paciente, NOW());
+    END IF;
+    RETURN OLD;
+END;
+$$;
+# Trigger eliminar
+CREATE OR REPLACE TRIGGER trigger_eliminado_responsable
+AFTER DELETE
+ON Responsable
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_eliminado_responsable();
 
 CREATE TABLE departamentos(
 Id_departamento INT PRIMARY KEY,
