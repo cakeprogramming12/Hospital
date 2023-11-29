@@ -8,6 +8,8 @@ y desdomentamos la opcion de postgresql
 
 
 Observaciones en la base
-id deben de ser SERIAL
+id deben de ser 
 
 SELECT * FROM departamentos;
+
+DELETE FROM departamentos;
