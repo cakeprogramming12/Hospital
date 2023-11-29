@@ -30,8 +30,8 @@
                     <ul class="nav nav-treeview">
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','departamentos.html')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a onclick="cargarContenido('content-wrapper','../Departamentos/departamentos.php')"
+                                class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Departamentos</p>
                             </a>
