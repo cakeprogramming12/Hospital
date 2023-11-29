@@ -17,6 +17,7 @@ Nombre VARCHAR(20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Fec_Nac DATE NOT NULL,
 Sexo VARCHAR(1) NOT NULL,
+
 Telefono BIGINT NOT NULL,
 Direccion VARCHAR(60) NOT NULL,
 No_piso INT,
@@ -199,7 +200,7 @@ Intervenciones_quirurgicas VARCHAR(50) NOT NULL,
 Sintomas VARCHAR (50) NOT NULL,
 Antecedentes VARCHAR(100) NOT NULL,
 F_ingreso DATE NOT NULL,
-F_egreso DATE,
+                      F_egreso DATE,
 Descripcion VARCHAR(150) NOT NULL,
 Id_paciente INT,
 Id_departamento INT,
@@ -265,3 +266,4 @@ LANGUAGE plpgsql;
 CREATE TRIGGER Tr_Update_RFC_H AFTER UPDATE ON hospital
 FOR EACH ROW
 EXECUTE PROCEDURE FK_Update();
+
