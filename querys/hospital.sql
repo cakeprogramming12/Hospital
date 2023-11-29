@@ -366,7 +366,7 @@ Id_producto INT,
 FOREIGN KEY (Id_producto) REFERENCES Producto(Id_producto));
 
 CREATE TABLE historial_cuenta_productos(
-Id_cuenta_prod INT PRIMARY KEY,
+Id_cuenta_prod SERIAL NOT NULL PRIMARY KEY,
 concepto VARCHAR(20) NOT NULL,
 fecha_cargo DATE NOT NULL,
 cantidad INT NOT NULL,
@@ -374,7 +374,7 @@ Id_producto INT,
 FOREIGN KEY (Id_producto) REFERENCES Producto(Id_producto));
 
 CREATE TABLE historial_cuenta_servicios(
-Id_cuenta_serv INT PRIMARY KEY,
+Id_cuenta_serv SERIAL NOT NULL PRIMARY KEY,
 concepto VARCHAR(30) NOT NULL,
 fecha_cargo DATE NOT NULL,
 cantidad INT NOT NULL,
@@ -382,7 +382,7 @@ Id_servicios INT,
 FOREIGN KEY (Id_servicios) REFERENCES Servicios(Id_servicio));
 
 CREATE TABLE facturacion(
-Id_factura INT PRIMARY KEY,
+Id_factura SERIAL NOT NULL PRIMARY KEY,
 fecha DATE NOT NULL,
 subtotal FLOAT NOT NULL,
 CFDI VARCHAR(40) NOT NULL,
@@ -429,7 +429,7 @@ Hemocomponentes(Id_hemocomponente));
 
 
 CREATE TABLE Mantenimiento_gral(
-Id_equipo INT PRIMARY KEY,
+Id_equipo SERIAL NOT NULL PRIMARY KEY,
 Nombre VARCHAR(30) NOT NULL,
 Cantidad INT NOT NULL,
 Fecha_mantenimiento DATE NOT NULL,
