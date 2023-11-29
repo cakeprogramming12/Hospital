@@ -140,7 +140,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE agregar_eliminado_piso();
 
 CREATE TABLE Pacientes(
-Id_Paciente INT PRIMARY KEY,
+Id_Paciente Serial NOT NULL PRIMARY KEY,
 Nombre VARCHAR(20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Fec_Nac DATE NOT NULL,
@@ -226,7 +226,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE agregar_eliminado_paciente();
 
 CREATE TABLE Responsable(
-Id_Responsable INT PRIMARY KEY,
+Id_Responsable Serial NOT NULL PRIMARY KEY,
 Nombre VARCHAR (20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Fec_Nac DATE NOT NULL,
