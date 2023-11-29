@@ -12,7 +12,7 @@ Hab_cama Varchar(10) NOT NULL,
 Especialidad VARCHAR (30) NOT NULL);
 
 CREATE TABLE Pacientes(
-Id_Paciente INT PRIMARY KEY,
+Id_Paciente SERIAL NOT NULL PRIMARY KEY,
 Nombre VARCHAR(20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Fec_Nac DATE NOT NULL,
@@ -25,7 +25,7 @@ FOREIGN KEY (No_Piso) REFERENCES Pisos(No_Piso),
 FOREIGN KEY (RFC_hospital) REFERENCES hospital(RFC_hospital));
 
 CREATE TABLE Responsable(
-Id_Responsable INT PRIMARY KEY,
+Id_Responsable SERIAL NOT NULL PRIMARY KEY,
 Nombre VARCHAR (20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Fec_Nac DATE NOT NULL,
@@ -43,7 +43,7 @@ Descripcion VARCHAR(100) NOT NULL);
 
 
 CREATE TABLE Producto(
-Id_producto INT PRIMARY KEY,
+Id_producto SERIAL NOT NULL PRIMARY KEY,
 Nombre VARCHAR(30) NOT NULL,
 Precio FLOAT NOT NULL,
 Tipo VARCHAR (20) NOT NULL,
@@ -51,7 +51,7 @@ Marca VARCHAR(50) NOT NULL);
 
 
 CREATE TABLE Prod_entrada(
-ID_Prod_entrada INT PRIMARY KEY,
+ID_Prod_entrada SERIAL NOT NULL PRIMARY KEY,
 Lote VARCHAR(12) NOT NULL,
 Cantidad INT NOT NULL,
 F_cad DATE NOT NULL,
@@ -86,7 +86,7 @@ Id_departamento INT,
 FOREIGN KEY (Id_departamento) REFERENCES Departamentos(Id_departamento));
 
 CREATE TABLE proveedores(
-Id_proveedor INT PRIMARY KEY,
+Id_proveedor SERIAL NOT NULL PRIMARY KEY,
 empresa VARCHAR(30) NOT NULL,
 Id_producto INT,
 FOREIGN KEY (Id_producto) REFERENCES Producto(Id_producto));
@@ -122,7 +122,7 @@ historial_cuenta_servicios(Id_cuenta_serv),
 FOREIGN KEY (Id_responsable) REFERENCES responsable(Id_responsable));
 
 CREATE TABLE empleado(
-Id_empleado INT PRIMARY KEY,
+Id_empleado SERIAL NOT NULL PRIMARY KEY,
 Nombre VARCHAR(20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Puesto VARCHAR(20) NOT NULL,
@@ -167,7 +167,7 @@ FOREIGN KEY (Id_departamento) REFERENCES Departamentos(Id_departamento));
 
 
 CREATE TABLE Orden_estudio(
-Id_orden INT PRIMARY KEY,
+Id_orden SERIAL NOT NULL PRIMARY KEY,
 Descripcion VARCHAR(20) NOT NULL,
 Id_estudio INT,
 Id_laboratorio INT,
@@ -192,7 +192,7 @@ FOREIGN KEY (Id_empleado) REFERENCES Empleado(Id_empleado));
 
 
 CREATE TABLE expediente(
-Id_expediente INT PRIMARY KEY,
+Id_expediente SERIAL NOT NULL PRIMARY KEY,
 Diagnosticos VARCHAR(50) NOT NULL,
 Tratamientos VARCHAR(50) NOT NULL,
 Intervenciones_quirurgicas VARCHAR(50) NOT NULL,
@@ -209,14 +209,14 @@ FOREIGN KEY (Id_departamento) REFERENCES departamentos(Id_departamento));
 
 
 CREATE TABLE expediente( 
-    Id_expediente INT, 
+    Id_expediente SERIAL NOT NULL, 
     Diagnosticos VARCHAR(50) NOT NULL, 
     Tratamientos VARCHAR(50) NOT NULL, 
     Intervenciones_quirurgicas VARCHAR(50) NOT NULL, 
     Sintomas VARCHAR(50) NOT NULL, 
     Antecedentes VARCHAR(100) NOT NULL, 
     F_ingreso DATE NOT NULL, 
-    F_egreso DATE, 
+    F_egreso DATE NOT NULL, 
     Descripcion VARCHAR(150) NOT NULL, 
     Id_paciente INT, 
     Id_departamento INT, 
