@@ -4,12 +4,3 @@ http://localhost/Ramiro%20projectos/Proyecto%20Base%20de%20datos/principal/index
 2.cargar la base de datos en sesion.php 
 Para ello debemos configuar desde xampp el archivo php.init
 y desdomentamos la opcion de postgresql
-
-
-
-Observaciones en la base
-id deben de ser 
-
-SELECT * FROM departamentos;
-
-DELETE FROM departamentos;
