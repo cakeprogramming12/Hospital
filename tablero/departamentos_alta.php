@@ -15,8 +15,7 @@ if ($consulta) {
     exit(); // Asegura que el script se detenga después de mostrar la alerta y redirigir
 } else {
     // Error: Mostrar alerta con el mensaje de error y redirigir a tablero.php
-    $mensajeError = 'Error al dar de alta el registro: ' . pg_last_error($conexion);
-    echo '<script>alert("'.$mensajeError.'"); window.location.href = "tablero.php";</script>';
+    echo '<script>alert("Registro duplicado"); window.location.href = "tablero.php";</script>';
     exit(); // Asegura que el script se detenga después de mostrar la alerta y redirigir
 }
 

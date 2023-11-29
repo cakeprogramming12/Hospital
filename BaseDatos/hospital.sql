@@ -37,6 +37,10 @@ RFC VARCHAR(12) NOT NULL,
 Id_paciente INT,
 FOREIGN KEY (Id_paciente) REFERENCES Pacientes(Id_paciente));
 
+/*
+Departamentos id autoincrementable
+no se pueda repetir el nombre
+*/
 CREATE TABLE departamentos (
     Id_departamento SERIAL PRIMARY KEY,
     Nombre VARCHAR(50) NOT NULL,
