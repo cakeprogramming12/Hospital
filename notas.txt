@@ -7,4 +7,7 @@ y desdomentamos la opcion de postgresql
 
 
 
+Observaciones en la base
+id deben de ser SERIAL
 
+SELECT * FROM departamentos;

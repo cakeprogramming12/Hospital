@@ -38,7 +38,7 @@ Id_paciente INT,
 FOREIGN KEY (Id_paciente) REFERENCES Pacientes(Id_paciente));
 
 CREATE TABLE departamentos(
-Id_departamento INT PRIMARY KEY,
+Id_departamento SERIAL PRIMARY KEY,
 Nombre VARCHAR(50) NOT NULL,
 Descripcion VARCHAR(100) NOT NULL);
 
