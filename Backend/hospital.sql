@@ -5,6 +5,75 @@ Nombre VARCHAR(50) NOT NULL,
 Direccion VARCHAR(60) NOT NULL,
 Email VARCHAR(30) NOT NULL);
 
+CREATE TABLE hospitales_nuevos(id SERIAL NOT NULL,RFC_hospital varchar(13) 
+not null,nombre varchar(50) not null,insertado_el TIMESTAMP(6) NOT NULL);
+
+CREATE OR REPLACE FUNCTION agregar_nuevo_hospital()
+ RETURNS TRIGGER
+ LANGUAGE PLPGSQL
+ AS
+$$
+BEGIN
+       IF NEW.RFC_hospital is null  THEN
+             INSERT INTO hospitales_nuevos(RFC_hospital,nombre,insertado_el)
+             VALUES(OLD.RFC_hospital,OLD.nombre,now());
+       END IF;
+       
+       RETURN NEW;
+
+END;
+$$
+;
+CREATE OR REPLACE TRIGGER nombre_nuevo_hospital
+ AFTER DELETE
+ ON hospital 
+ FOR EACH ROW 
+ EXECUTE PROCEDURE agregar_nuevo_hospital();
+
+
+CREATE OR REPLACE FUNCTION agregar_nuevo_hospital()
+ RETURNS TRIGGER
+ LANGUAGE PLPGSQL
+ AS
+$$
+BEGIN
+       IF NEW.nombre <> OLD.nombre THEN
+             INSERT INTO hospitales_nuevos(RFC_hospital,nombre,insertado_el)
+             VALUES(OLD.RFC_hospital,OLD.nombre,now());
+       END IF;
+       
+       RETURN NEW;
+
+END;
+$$
+;
+CREATE OR REPLACE TRIGGER nombre_nuevo_hospital
+ BEFORE UPDATE
+ ON hospital 
+ FOR EACH ROW 
+ EXECUTE PROCEDURE agregar_nuevo_hospital();
+
+CREATE OR REPLACE FUNCTION agregar_nuevo_hospital()
+ RETURNS TRIGGER
+ LANGUAGE PLPGSQL
+ AS
+$$
+BEGIN
+       IF NEW.RFC_hospital is not null  THEN
+             INSERT INTO hospitales_nuevos(RFC_hospital,nombre,insertado_el)
+             VALUES(NEW.RFC_hospital,NEW.nombre,now());
+       END IF;
+       
+       RETURN NEW;
+
+END;
+$$
+;
+CREATE OR REPLACE TRIGGER nombre_nuevo_hospital
+ BEFORE INSERT
+ ON hospital 
+ FOR EACH ROW 
+ EXECUTE PROCEDURE agregar_nuevo_hospital();
 
 CREATE TABLE Pisos(
 No_Piso INT PRIMARY KEY,
