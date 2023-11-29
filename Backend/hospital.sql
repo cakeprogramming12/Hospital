@@ -5,17 +5,16 @@ Nombre VARCHAR(50) NOT NULL,
 Direccion VARCHAR(60) NOT NULL,
 Email VARCHAR(30) NOT NULL);
 
-CREATE TABLE hospitales_nuevos(id SERIAL NOT NULL,RFC_hospital varchar(13) 
+CREATE TABLE hospital_Eliminado(id SERIAL NOT NULL,RFC_hospital varchar(13) 
 not null,nombre varchar(50) not null,insertado_el TIMESTAMP(6) NOT NULL);
-
-CREATE OR REPLACE FUNCTION agregar_nuevo_hospital()
+CREATE OR REPLACE FUNCTION hospital_Eliminado()
  RETURNS TRIGGER
  LANGUAGE PLPGSQL
  AS
 $$
 BEGIN
        IF NEW.RFC_hospital is null  THEN
-             INSERT INTO hospitales_nuevos(RFC_hospital,nombre,insertado_el)
+             INSERT INTO hospital_Eliminado(RFC_hospital,nombre,insertado_el)
              VALUES(OLD.RFC_hospital,OLD.nombre,now());
        END IF;
        
@@ -24,21 +23,22 @@ BEGIN
 END;
 $$
 ;
-CREATE OR REPLACE TRIGGER nombre_nuevo_hospital
+CREATE OR REPLACE TRIGGER nombre_hospital_Eliminado
  AFTER DELETE
  ON hospital 
  FOR EACH ROW 
- EXECUTE PROCEDURE agregar_nuevo_hospital();
+ EXECUTE PROCEDURE hospital_Eliminado();
 
-
-CREATE OR REPLACE FUNCTION agregar_nuevo_hospital()
+CREATE TABLE cambio_nombre_hospital(id SERIAL NOT NULL,RFC_hospital varchar(13) 
+not null,nombre varchar(50) not null,insertado_el TIMESTAMP(6) NOT NULL);
+CREATE OR REPLACE FUNCTION cambio_nombre_hospital()
  RETURNS TRIGGER
  LANGUAGE PLPGSQL
  AS
 $$
 BEGIN
        IF NEW.nombre <> OLD.nombre THEN
-             INSERT INTO hospitales_nuevos(RFC_hospital,nombre,insertado_el)
+             INSERT INTO cambio_nombre_hospital(RFC_hospital,nombre,insertado_el)
              VALUES(OLD.RFC_hospital,OLD.nombre,now());
        END IF;
        
@@ -47,12 +47,14 @@ BEGIN
 END;
 $$
 ;
-CREATE OR REPLACE TRIGGER nombre_nuevo_hospital
+CREATE OR REPLACE TRIGGER nombre_cambiado_hospital
  BEFORE UPDATE
  ON hospital 
  FOR EACH ROW 
- EXECUTE PROCEDURE agregar_nuevo_hospital();
+ EXECUTE PROCEDURE cambio_nombre_hospital();
 
+CREATE TABLE hospitales_nuevos(id SERIAL NOT NULL,RFC_hospital varchar(13) 
+not null,nombre varchar(50) not null,insertado_el TIMESTAMP(6) NOT NULL);
 CREATE OR REPLACE FUNCTION agregar_nuevo_hospital()
  RETURNS TRIGGER
  LANGUAGE PLPGSQL
