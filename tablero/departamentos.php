@@ -102,10 +102,21 @@
                         <h3 class="card-title">Modificar Departamento</h3>
                     </div>
                     <div class="card-body">
-                        <form action="procesar_modificar_departamento.php" method="post">
+                        <form action="departamentos_modificar.php" method="post">
                             <div class="form-group">
                                 <label for="id_departamento_modificar">ID del Departamento a modificar:</label>
-                                <input type="number" name="id_departamento_modificar" class="form-control" required>
+                                <select name="id_departamento_modificar" class="form-control" required>
+                                    <?php  
+                            require '../conexionphp/conexion.php';
+                            $query = "SELECT id_departamento, nombre FROM departamentos";
+                            $consulta = pg_query($conexion, $query);
+
+                            while($obj = pg_fetch_object($consulta)) { 
+                        ?>
+                                    <option value="<?php echo $obj->id_departamento ?>"><?php echo $obj->nombre ?>
+                                    </option>
+                                    <?php } ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="nombre_modificado">Nuevo Nombre:</label>
@@ -121,6 +132,7 @@
                 </div>
             </div>
 
+
             <!-- Consultar Departamento -->
             <div class="col-md-6">
                 <div class="card">
@@ -128,23 +140,30 @@
                         <h3 class="card-title">Consultar Departamento</h3>
                     </div>
                     <div class="card-body">
-                        <form action="procesar_consultar_departamento.php" method="post">
+                        <form action="departamentos_consulta.php" method="post">
                             <div class="form-group">
                                 <label for="id_departamento_consultar">ID del Departamento a consultar:</label>
                                 <input type="number" name="id_departamento_consultar" class="form-control" required>
                             </div>
+                            <div class="form-group">
+                                <label>Columnas a Consultar:</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="consultar_nombre" value="1">
+                                    <label class="form-check-label">Nombre</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="consultar_descripcion"
+                                        value="1">
+                                    <label class="form-check-label">Descripción</label>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary">Consultar Departamento</button>
                         </form>
 
-                        <!-- Aquí puedes mostrar los resultados de la consulta -->
-                        <div class="mt-4">
-                            <h4>Resultado de la consulta:</h4>
-                            <!-- Muestra los resultados aquí, por ejemplo, en un div o una tabla -->
-                            <div id="resultadoConsulta"></div>
-                        </div>
                     </div>
                 </div>
             </div>
+
 
 
     </section>
