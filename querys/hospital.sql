@@ -365,6 +365,63 @@ empresa VARCHAR(30) NOT NULL,
 Id_producto INT,
 FOREIGN KEY (Id_producto) REFERENCES Producto(Id_producto));
 
+#1ra tabla
+CREATE TABLE nuevos_proveedores (
+    Id SERIAL NOT NULL,
+    Id_proveedor INT NOT NULL,
+    Empresa VARCHAR(30) NOT NULL,
+    Id_producto INT,
+    Insertado_el TIMESTAMP(6) NOT NULL
+);
+#2da tabla
+CREATE TABLE eliminados_proveedores (
+    Id SERIAL NOT NULL,
+    Id_proveedor INT NOT NULL,
+    Empresa VARCHAR(30) NOT NULL,
+    Id_producto INT,
+    Eliminado_el TIMESTAMP(6) NOT NULL
+);
+#Funcion para trigger Insertar
+CREATE OR REPLACE FUNCTION agregar_nuevo_proveedor()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+    IF NEW.Id_proveedor IS NOT NULL THEN
+        INSERT INTO nuevos_proveedores (Id_proveedor, empresa, Id_producto, insertado_el)
+        VALUES (NEW.Id_proveedor, NEW.empresa, NEW.Id_producto, NOW());
+    END IF;
+    RETURN NEW;
+END;
+$$;
+# trigger Insertar
+CREATE OR REPLACE TRIGGER trigger_nuevo_proveedor
+BEFORE INSERT
+ON proveedores
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_nuevo_proveedor();
+
+#Funcion para trigger  eliminar 
+CREATE OR REPLACE FUNCTION agregar_eliminado_proveedor()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+    IF OLD.Id_proveedor IS NOT NULL THEN
+        INSERT INTO eliminados_proveedores (Id_proveedor, empresa, Id_producto, eliminado_el)
+        VALUES (OLD.Id_proveedor, OLD.empresa, OLD.Id_producto, NOW());
+    END IF;
+    RETURN OLD;
+END;
+$$
+#trigger eliminar 
+CREATE OR REPLACE TRIGGER trigger_eliminado_proveedor
+AFTER DELETE
+ON proveedores
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_eliminado_proveedor();
+
+
 CREATE TABLE historial_cuenta_productos(
 Id_cuenta_prod SERIAL NOT NULL PRIMARY KEY,
 concepto VARCHAR(20) NOT NULL,
@@ -381,6 +438,64 @@ cantidad INT NOT NULL,
 Id_servicios INT,
 FOREIGN KEY (Id_servicios) REFERENCES Servicios(Id_servicio));
 
+#1ra tabla
+CREATE TABLE nuevos_historiales_cuenta_productos (
+    Id SERIAL NOT NULL,
+    Id_cuenta_prod INT NOT NULL,
+    Concepto VARCHAR(20) NOT NULL,
+    Id_producto INT,
+    Insertado_el TIMESTAMP(6) NOT NULL
+);
+#2da tabla
+CREATE TABLE eliminados_historiales_cuenta_productos (
+    Id SERIAL NOT NULL,
+    Id_cuenta_prod INT NOT NULL,
+    Concepto VARCHAR(20) NOT NULL,
+    Id_producto INT,
+    Eliminado_el TIMESTAMP(6) NOT NULL
+);
+#Funcion para trigger Insertar 
+CREATE OR REPLACE FUNCTION agregar_nuevo_historial_cuenta_producto()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+    IF NEW.Id_cuenta_prod IS NOT NULL THEN
+        INSERT INTO nuevos_historiales_cuenta_productos (Id_cuenta_prod, 
+            concepto, Id_producto, insertado_el)
+        VALUES (NEW.Id_cuenta_prod, NEW.concepto, NEW.Id_producto, NOW());
+    END IF;
+    RETURN NEW;
+END;
+$$;
+#trigger insertar 
+CREATE OR REPLACE TRIGGER trigger_nuevo_historial_cuenta_producto
+BEFORE INSERT
+ON historial_cuenta_productos
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_nuevo_historial_cuenta_producto();
+#Funcion para trigger eliminar 
+CREATE OR REPLACE FUNCTION agregar_eliminado_historial_cuenta_producto()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+    IF OLD.Id_cuenta_prod IS NOT NULL THEN
+        INSERT INTO eliminados_historiales_cuenta_productos (Id_cuenta_prod, 
+            concepto, Id_producto, eliminado_el)
+        VALUES (OLD.Id_cuenta_prod, OLD.concepto, OLD.Id_producto, NOW());
+    END IF;
+    RETURN OLD;
+END;
+$$;
+#trigger eliminar 
+CREATE OR REPLACE TRIGGER trigger_eliminado_historial_cuenta_producto
+AFTER DELETE
+ON historial_cuenta_productos
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_eliminado_historial_cuenta_producto();
+
+
 CREATE TABLE facturacion(
 Id_factura SERIAL NOT NULL PRIMARY KEY,
 fecha DATE NOT NULL,
@@ -394,6 +509,71 @@ historial_cuenta_productos(Id_cuenta_prod),
 FOREIGN KEY (Id_cuenta_serv) REFERENCES
 historial_cuenta_servicios(Id_cuenta_serv),
 FOREIGN KEY (Id_responsable) REFERENCES responsable(Id_responsable));
+
+#1ra tabla
+CREATE TABLE nuevas_facturas (
+    Id SERIAL NOT NULL,
+    Id_factura INT NOT NULL,
+    Subtotal FLOAT NOT NULL,
+    Id_cuenta_prod INT,
+    Id_cuenta_serv INT,
+    Id_responsable INT,
+    Insertado_el TIMESTAMP(6) NOT NULL
+);
+#2da tabla
+CREATE TABLE eliminadas_facturas (
+    Id SERIAL NOT NULL,
+    Id_factura INT NOT NULL,
+    Subtotal FLOAT NOT NULL,
+    Id_cuenta_prod INT,
+    Id_cuenta_serv INT,
+    Id_responsable INT,
+    Eliminado_el TIMESTAMP(6) NOT NULL
+);
+#Funcion para trigger Insertar
+CREATE OR REPLACE FUNCTION agregar_nueva_factura()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+    IF NEW.Id_factura IS NOT NULL THEN
+        INSERT INTO nuevas_facturas (Id_factura, subtotal, 
+            Id_cuenta_prod, Id_cuenta_serv, Id_responsable, 
+            insertado_el)
+        VALUES (NEW.Id_factura, NEW.subtotal, NEW.Id_cuenta_prod, 
+            NEW.Id_cuenta_serv, NEW.Id_responsable, NOW());
+    END IF;
+    RETURN NEW;
+END;
+$$;
+#trigger insertar 
+CREATE OR REPLACE TRIGGER trigger_nueva_factura
+BEFORE INSERT
+ON facturacion
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_nueva_factura();
+#Funcion para trigger eliminar 
+CREATE OR REPLACE FUNCTION agregar_eliminada_factura()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+    IF OLD.Id_factura IS NOT NULL THEN
+        INSERT INTO eliminadas_facturas (Id_factura, subtotal, 
+            Id_cuenta_prod, Id_cuenta_serv, Id_responsable, 
+            eliminado_el)
+        VALUES (OLD.Id_factura, OLD.subtotal, OLD.Id_cuenta_prod, 
+            OLD.Id_cuenta_serv, OLD.Id_responsable, NOW());
+    END IF;
+    RETURN OLD;
+END;
+$$;
+#trigger eliminar 
+CREATE OR REPLACE TRIGGER trigger_eliminada_factura
+AFTER DELETE
+ON facturacion
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_eliminada_factura();
 
 CREATE TABLE empleado(
 Id_empleado SERIAL NOT NULL PRIMARY KEY,

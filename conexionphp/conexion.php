@@ -2,11 +2,11 @@
 #servidor
 $host='localhost';
 #nombre base de datos
-$bd='HospitalFinal';
+$bd='postgres';
 #usuario
 $user='postgres';
 #password
-$pass='basedatos';
+$pass='7109';
 
 $conexion=pg_connect("host=$host dbname=$bd user=$user password=$pass");
 ?>
