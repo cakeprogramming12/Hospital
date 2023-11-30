@@ -373,6 +373,7 @@ CREATE TABLE nuevos_proveedores (
     Id_producto INT,
     Insertado_el TIMESTAMP(6) NOT NULL
 );
+#2da tabla
 CREATE TABLE eliminados_proveedores (
     Id SERIAL NOT NULL,
     Id_proveedor INT NOT NULL,
