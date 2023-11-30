@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrar departamentos</title>
+    <title>Administrar Hospitales</title>
     <!-- Agregamos la hoja de estilos de Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
@@ -15,12 +15,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Administrar departamentos</h1>
+                    <h1>Administrar Hospitales</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-                        <li class="breadcrumb-item active">Gestor departamentos</li>
+                        <li class="breadcrumb-item active">Gestor Hospitaless</li>
                     </ol>
                 </div>
             </div>
@@ -34,26 +34,34 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Agregar Departamentos</h3>
+                            <h3 class="card-title">Agregar Hospitals</h3>
                         </div>
                         <div class="card-body">
 
-                            <form action="departamentos_alta.php" method="post">
+                            <form action="Hospital_alta.php" method="post">
+                                <div class="form-group">
+                                    <label for="rfc_hospital">RFC Hospital</label>
+                                    <input type="text" name="rfc_hospital" class="form-control" required>
+                                </div>
 
                                 <div class="form-group">
-                                    <label for="nombre">Nombre:</label>
-                                    <!-- name: nombre -->
+                                    <label for="nombre">Nombre</label>
                                     <input type="text" name="nombre" class="form-control" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="descripcion">Descripción:</label>
-                                    <!-- name: descripcion -->
-                                    <textarea name="descripcion" class="form-control" required></textarea>
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" class="form-control" required>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Agregar Departamento</button>
+                                <div class="form-group">
+                                    <label for="direccion">Dirección</label>
+                                    <input type="text" name="direccion" class="form-control" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Agregar Hospital</button>
                             </form>
+
                         </div>
                     </div>
                 </div>

@@ -1,9 +1,11 @@
 CREATE SCHEMA Hospital;
 
-CREATE TABLE Hospital(RFC_hospital VARCHAR (13) PRIMARY KEY,
-Nombre VARCHAR(50) NOT NULL,
-Direccion VARCHAR(60) NOT NULL,
-Email VARCHAR(30) NOT NULL);
+CREATE TABLE Hospital (
+    rfc_hospital VARCHAR(13) PRIMARY KEY CHECK (rfc_hospital ~ '^[A-Z&Ñ]{3,4}\d{6}[A-V1-9][A-Z1-9]\d{1}$'),
+    nombre VARCHAR(50) NOT NULL,
+    direccion VARCHAR(60) UNIQUE NOT NULL,
+    email VARCHAR(30) UNIQUE NOT NULL CHECK (email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$')
+);
 
 
 CREATE TABLE Pisos(

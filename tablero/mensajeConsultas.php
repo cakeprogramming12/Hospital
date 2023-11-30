@@ -13,10 +13,11 @@
 
     <div class="container mt-5">
         <?php
-        if (isset($_GET['mensaje']) && isset($_GET['mensaje_text']) && isset($_GET['consulta'])) {
+        if (isset($_GET['mensaje']) && isset($_GET['mensaje_text']) && isset($_GET['consulta']) && isset($_GET['tabla_resultado'])) {
             $tipo_mensaje = $_GET['mensaje'];
             $mensaje_text = urldecode($_GET['mensaje_text']);
             $consulta_ejecutada = urldecode($_GET['consulta']);
+            $tabla_resultado = urldecode($_GET['tabla_resultado']);
 
             // Utilizar clases de Bootstrap para los mensajes
             $alert_class = ($tipo_mensaje === 'success') ? 'alert-success' : 'alert-danger';
@@ -26,10 +27,14 @@
             echo '<strong>' . ucfirst($tipo_mensaje) . ':</strong> ' . $mensaje_text;
             echo '<br><strong>Consulta ejecutada:</strong> ' . $consulta_ejecutada;
             echo '</div>';
+
+            // Mostrar la tabla resultado
+            echo '<h4>Resultado de la consulta:</h4>';
+            echo $tabla_resultado;
         } else {
             // Mensaje no especificado
             echo '<div class="alert alert-danger">';
-            echo '<strong>Error:</strong> Mensaje no especificado. Consulta no se pudo realizar.';
+            echo '<strong>Error:</strong> Mensaje no especificado.';
             echo '</div>';
         }
         ?>
