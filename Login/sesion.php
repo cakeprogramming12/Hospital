@@ -17,6 +17,7 @@ $clave=$_POST['pass'];
 $query=("set search_path to Hospital;SELECT * FROM usuarios 
 	WHERE usuario='$usuario' AND contrasena='$clave';");
 
+
 #Ejecutamos la consulta, pasando la conexion y el query
 $consulta=pg_query($conexion,$query);
 #numero de columnas que salieron de esa consulta

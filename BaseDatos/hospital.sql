@@ -1,9 +1,11 @@
 CREATE SCHEMA Hospital;
 
-CREATE TABLE Hospital(RFC_hospital VARCHAR (13) PRIMARY KEY,
-Nombre VARCHAR(50) NOT NULL,
-Direccion VARCHAR(60) NOT NULL,
-Email VARCHAR(30) NOT NULL);
+CREATE TABLE Hospital (
+    rfc_hospital VARCHAR(13) PRIMARY KEY CHECK (rfc_hospital ~ '^[A-Z&Ñ]{3,4}\d{6}[A-V1-9][A-Z1-9]\d{1}$'),
+    nombre VARCHAR(50) NOT NULL,
+    direccion VARCHAR(60) UNIQUE NOT NULL,
+    email VARCHAR(30) UNIQUE NOT NULL CHECK (email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$')
+);
 
 CREATE TABLE hospital_Eliminado(id SERIAL NOT NULL,RFC_hospital varchar(13) 
 not null,nombre varchar(50) not null,insertado_el TIMESTAMP(6) NOT NULL);
@@ -145,6 +147,7 @@ Nombre VARCHAR(20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Fec_Nac DATE NOT NULL,
 Sexo VARCHAR(1) NOT NULL,
+
 Telefono BIGINT NOT NULL,
 Direccion VARCHAR(60) NOT NULL,
 No_piso INT,
@@ -237,6 +240,7 @@ RFC VARCHAR(12) NOT NULL,
 Id_paciente INT,
 FOREIGN KEY (Id_paciente) REFERENCES Pacientes(Id_paciente));
 
+<<<<<<< HEAD:querys/hospital.sql
 # 1ra tabla
 CREATE TABLE nuevos_responsables (
     id SERIAL NOT NULL,
@@ -314,6 +318,18 @@ CREATE TABLE departamentos(
 Id_departamento INT PRIMARY KEY,
 Nombre VARCHAR(50) NOT NULL,
 Descripcion VARCHAR(100) NOT NULL);
+=======
+/*
+Departamentos id autoincrementable
+no se pueda repetir el nombre
+*/
+CREATE TABLE departamentos (
+    Id_departamento SERIAL PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Descripcion VARCHAR(100) NOT NULL,
+    CONSTRAINT nombre_unico UNIQUE (Nombre)
+);
+>>>>>>> ramiro:BaseDatos/hospital.sql
 
 
 CREATE TABLE Producto(
@@ -473,7 +489,7 @@ Intervenciones_quirurgicas VARCHAR(50) NOT NULL,
 Sintomas VARCHAR (50) NOT NULL,
 Antecedentes VARCHAR(100) NOT NULL,
 F_ingreso DATE NOT NULL,
-F_egreso DATE,
+                      F_egreso DATE,
 Descripcion VARCHAR(150) NOT NULL,
 Id_paciente INT,
 Id_departamento INT,
@@ -482,6 +498,7 @@ FOREIGN KEY (Id_departamento) REFERENCES departamentos(Id_departamento));
 
 
 
+<<<<<<< HEAD:querys/hospital.sql
 CREATE TABLE expediente( 
     Id_expediente SERIAL NOT NULL, 
     Diagnosticos VARCHAR(50) NOT NULL, 
@@ -498,6 +515,39 @@ CREATE TABLE expediente(
     FOREIGN KEY (Id_paciente) REFERENCES pacientes(Id_paciente), 
     FOREIGN KEY (Id_departamento) REFERENCES departamentos(Id_departamento) 
 ) PARTITION BY RANGE (F_ingreso); 
+=======
+
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    usuario VARCHAR(255) NOT NULL,
+    contrasena VARCHAR(255) NOT NULL
+);
+
+INSERT INTO usuarios (usuario, contrasena) VALUES ('ramiro', '123');
+
+
+
+
+
+/*
+Particiones nicoles
+*/
+CREATE TABLE expediente(
+Id_expediente INT PRIMARY KEY,
+Diagnosticos VARCHAR(50) NOT NULL,
+Tratamientos VARCHAR(50) NOT NULL,
+Intervenciones_quirurgicas VARCHAR(50) NOT NULL,
+Sintomas VARCHAR (50) NOT NULL,
+Antecedentes VARCHAR(100) NOT NULL,
+F_ingreso DATE NOT NULL,
+F_egreso DATE,
+Descripcion VARCHAR(150) NOT NULL,
+Id_paciente INT,
+Id_departamento INT,
+FOREIGN KEY (Id_paciente) REFERENCES pacientes(Id_paciente),
+FOREIGN KEY (Id_departamento) REFERENCES departamentos(Id_departamento))
+PARTITION BY RANGE (F_ingreso);
+>>>>>>> ramiro:BaseDatos/hospital.sql
 
 
 CREATE TABLE expediente_2020 PARTITION OF expediente FOR VALUES FROM ('2020-01-01')
@@ -525,3 +575,4 @@ LANGUAGE plpgsql;
 CREATE TRIGGER Tr_Update_RFC_H AFTER UPDATE ON hospital
 FOR EACH ROW
 EXECUTE PROCEDURE FK_Update();
+
