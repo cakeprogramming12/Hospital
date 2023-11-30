@@ -525,3 +525,17 @@ LANGUAGE plpgsql;
 CREATE TRIGGER Tr_Update_RFC_H AFTER UPDATE ON hospital
 FOR EACH ROW
 EXECUTE PROCEDURE FK_Update();
+
+# ROLLUP n+1
+select nombre,tipo,marca, SUM(precio) Suma from 
+producto GROUP BY ROLLUP (nombre,tipo,marca)
+ORDER BY nombre,marca,tipo;
+
+# CUBE 2^n
+select nombre,tipo,marca, SUM(precio) Suma from 
+producto GROUP BY CUBE (nombre,tipo,marca)
+ORDER BY nombre,marca,tipo;
+
+#RANK() Y DENSE_RANK()
+select marca, Rank() over(order by marca),dense_rank() over(order by marca) 
+from producto;
