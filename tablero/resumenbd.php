@@ -73,10 +73,34 @@
 
 
                                     <tr>
-                                        <td>Tabla 2</td>
-                                        <td>valor de registros</td>
-                                        <td></td>
+                                        <td>hospitales</td>
+                                        <td><?php  
+  require '../conexionphp/conexion.php';
+
+    $query = "SELECT COUNT(*) AS total_registros FROM hospital";
+    $consulta = pg_query($conexion, $query);
+
+    if ($consulta) {
+        $resultado = pg_fetch_assoc($consulta);
+        $total_registros = $resultado['total_registros'];
+        echo "Total de registros: $total_registros";
+    } else {
+        echo "Error al ejecutar la consulta.";
+    }
+
+    pg_close($conexion);
+    ?></td>
+                                        <td><a href="reportes.php?tabla=hospital" class="btn btn-primary">Descargar
+                                                Reporte</a></td>
+
                                     </tr>
+
+
+
+
+
+
+
                                     <!-- Agrega más filas según tus tablas -->
                                 </tbody>
                             </table>
