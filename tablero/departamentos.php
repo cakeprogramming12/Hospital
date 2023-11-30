@@ -7,90 +7,93 @@
     <title>Administrar departamentos</title>
     <!-- Agregamos la hoja de estilos de Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+    body {
+        background-color: #f4f4f4;
+        /* Cambia el color de fondo según tus preferencias */
+    }
+    </style>
 </head>
 
 <body>
-
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Administrar departamentos</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-                        <li class="breadcrumb-item active">Gestor departamentos</li>
-                    </ol>
-                </div>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Administrar Departamentos</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="tablero.php">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Gestor departamentos</a>
+                    </li>
+                </ul>
             </div>
-        </div>
-    </section>
+        </nav>
+    </header>
 
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <!-- Agregar Departamento -->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Agregar Departamentos</h3>
-                        </div>
-                        <div class="card-body">
+    <main class="container mt-4">
+        <div class="row">
 
-                            <form action="departamentos_alta.php" method="post">
+            <!-- Agregar Departamento -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title">Agregar Departamento</h3>
+                    </div>
+                    <div class="card-body">
 
-                                <div class="form-group">
-                                    <label for="nombre">Nombre:</label>
-                                    <!-- name: nombre -->
-                                    <input type="text" name="nombre" class="form-control" required>
-                                </div>
+                        <form action="departamentos_alta.php" method="post">
 
-                                <div class="form-group">
-                                    <label for="descripcion">Descripción:</label>
-                                    <!-- name: descripcion -->
-                                    <textarea name="descripcion" class="form-control" required></textarea>
-                                </div>
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" name="nombre" class="form-control" required>
+                            </div>
 
-                                <button type="submit" class="btn btn-primary">Agregar Departamento</button>
-                            </form>
-                        </div>
+                            <div class="form-group">
+                                <label for="descripcion">Descripción:</label>
+                                <textarea name="descripcion" class="form-control" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Agregar Departamento</button>
+                        </form>
                     </div>
                 </div>
+            </div>
 
-                <!-- Eliminar Departamento -->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Eliminar Departamento</h3>
-                        </div>
-                        <div class="card-body">
-                            <form action="departamentos_delete.php" method="post">
-                                <div class="form-group">
+            <!-- Eliminar Departamento -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-danger text-white">
+                        <h3 class="card-title">Eliminar Departamento</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="departamentos_delete.php" method="post">
+                            <div class="form-group">
+                                <label for="id_departamento_eliminar">Nombre del departamento</label>
+                                <select name="id_departamento" class="form-control">
 
-                                    <label for="id_departamento_eliminar">Nombre del departamento</label>
-                                    <select name="id_departamento">
-
-                                        <?php  
-
+                                    <?php  
                                 require '../conexionphp/conexion.php';
-                                $query=("SELECT id_departamento,nombre FROM departamentos");
-                                // Ejecutar la consulta
+                                $query=("SELECT id_departamento, nombre FROM departamentos");
                                 $consulta = pg_query($conexion, $query);
-
 
                                 while($obj=pg_fetch_object($consulta)){ ?>
 
-                                        <option value="<?php echo $obj->id_departamento ?>"><?php echo $obj->nombre?>
-                                        </option>
-                                        <?php
+                                    <option value="<?php echo $obj->id_departamento ?>"><?php echo $obj->nombre?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-danger">Eliminar Departamento</button>
-                            </form>
-                        </div>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Eliminar Departamento</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -98,7 +101,7 @@
             <!-- Modificar Departamento -->
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-warning text-white">
                         <h3 class="card-title">Modificar Departamento</h3>
                     </div>
                     <div class="card-body">
@@ -126,17 +129,16 @@
                                 <label for="descripcion_modificada">Nueva Descripción:</label>
                                 <textarea name="descripcion_modificada" class="form-control" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Modificar Departamento</button>
+                            <button type="submit" class="btn btn-warning text-white">Modificar Departamento</button>
                         </form>
                     </div>
                 </div>
             </div>
 
-
             <!-- Consultar Departamento -->
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-info text-white">
                         <h3 class="card-title">Consultar Departamento</h3>
                     </div>
                     <div class="card-body">
@@ -168,22 +170,19 @@
                                     <label class="form-check-label">Descripción</label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Consultar Departamento</button>
+                            <button type="submit" class="btn btn-info text-white">Consultar Departamento</button>
                         </form>
                     </div>
                 </div>
             </div>
 
-
-
-
-    </section>
+        </div>
+    </main>
 
     <!-- Agregamos los scripts de Bootstrap al final del cuerpo para mejorar el rendimiento de la página -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 
 </body>
 

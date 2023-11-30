@@ -30,16 +30,14 @@
                     <ul class="nav nav-treeview">
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','departamentos.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="departamentos.php" class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Departamentos</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','Hospital.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="Empleado.php" class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Empleado</p>
                             </a>
@@ -54,8 +52,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','Hospital.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="Hospital.php" class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Hospital</p>
                             </a>

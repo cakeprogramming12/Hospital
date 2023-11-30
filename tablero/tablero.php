@@ -84,17 +84,6 @@
 
     </div>
 
-    <!-- ./wrapper -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="assets/dist/js/demo.js"></script>
-
-    <!-- codigo para hacer EL TABLERO dinamicO Y QUE SE MUESTRE  EN LA MISMA PAGINA -->
-    <script>
-    function cargarContenido(contenedor, contenido) {
-        $("." + contenedor).load(contenido);
-    }
-    </script>
-
 </body>
 
 </html>

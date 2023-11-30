@@ -40,7 +40,7 @@
         ?>
 
         <!-- Botón para volver a departamentos.php -->
-        <a href="tablero.php" class="btn btn-primary mt-3">Volver</a>
+        <a href="tablero.php" class="btn btn-primary mt-3">Volver al menu</a>
     </div>
 
     <!-- Agregar el enlace al archivo JS de Bootstrap y a la biblioteca jQuery -->
