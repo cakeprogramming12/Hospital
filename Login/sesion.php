@@ -14,8 +14,9 @@ $clave=$_POST['pass'];
 
 
 #hacemos la consulta a la tabla que contenga los usuarios
-$query=("set search_path to Hospital;SELECT * FROM usuarios 
-	WHERE usuario='$usuario' AND contrasena='$clave';");
+$query=("SELECT * FROM bd_hospital.usuarios 
+	WHERE usuario='$usuario' AND contrasena='$clave'");
+
 
 #Ejecutamos la consulta, pasando la conexion y el query
 $consulta=pg_query($conexion,$query);
@@ -28,7 +29,7 @@ if($cantidad>0){
     #variable de sesion, para poder usarlo en otra paguina
 	$_SESSION['nombre_usuario']=$usuario;
 	#nos dirige a otra paguina
-    header('Location:../tablero/tablero.php');
+    header('Location:../tablero/home.php');
 }
 #los datos estan mal
 else{

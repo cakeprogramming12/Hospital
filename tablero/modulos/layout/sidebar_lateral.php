@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4 menu_lateral">
 
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="tablero.php" class="brand-link">
         <img src="assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">ADMINISTRATIVO</span>
@@ -30,32 +30,29 @@
                     <ul class="nav nav-treeview">
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','departamentos.html')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="departamentos.php" class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Departamentos</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','productos.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="empleado.php" class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Empleado</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','productos.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="Expediente.php" class="nav-link" style="cursor: pointer;">
+
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Expediente</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','productos.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="Hospital.php" class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Hospital</p>
                             </a>
@@ -63,16 +60,15 @@
 
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','productos.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="Pacientes.php" class="nav-link" style="cursor: pointer;">
+
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pacientes</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','productos.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="Responsable.php" class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Responsable</p>
                             </a>
@@ -80,8 +76,7 @@
 
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','productos.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="pisos.php" class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pisos</p>
                             </a>
@@ -294,15 +289,6 @@
 
                     </ul>
                 </li>
-
-
-
-
-
-
-
-
-
 
             </ul>
 

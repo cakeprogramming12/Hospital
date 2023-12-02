@@ -68,7 +68,7 @@
             // content-wrapper  TODO ESTO ES PARA QUE LA PAGUINA MUESTRE VARIAS PAGUINAS EN UBNA
             echo '<div class="content-wrapper">';
         
-                include "resumenbd.html";
+                include "resumenbd.php";
                 
             echo '</div>';
 
@@ -83,16 +83,6 @@
         ?>
 
     </div>
-
-    <!-- ./wrapper -->
-    <script src="assets/dist/js/demo.js"></script>
-
-    <!-- codigo para hacer EL TABLERO dinamicO Y QUE SE MUESTRE  EN LA MISMA PAGINA -->
-    <script>
-    function cargarContenido(contenedor, contenido) {
-        $("." + contenedor).load(contenido);
-    }
-    </script>
 
 </body>
 

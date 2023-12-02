@@ -35,18 +35,19 @@
         margin-bottom: 15px;
       }
     </style>
-    <title>Login de usuarios</title>
+    <title>Registro de usuarios</title>
   </head>
   <body>
-    <!-- Formulario de inicio de sesion -->
+    <!-- Formulario de registro -->
     <div class="container">
       <div class="text-center caja-login">
         <p class="formulario-login-cabecera-fuente">Hos<span>pital</span></p>
         <div class="formulario-login">
-          <!-- La información se la mandamos a sesion php -->
-          <form action="sesion.php" method="POST">
+          <form action="registro.php" method="POST">
             <div class="formulario-login-cabecera">
-              <p class="formulario-login-cabecera-fuente">Ingreso de usuario</p>
+              <p class="formulario-login-cabecera-fuente">
+                Registro de usuario
+              </p>
             </div>
             <div class="login-elements">
               <input
@@ -69,13 +70,13 @@
             <div class="login-elements">
               <input
                 type="submit"
-                name="entrar"
-                class="btn btn-success btn-block"
+                name="registrarse"
+                class="btn btn-primary btn-block"
               />
             </div>
           </form>
           <p class="mb-0">
-            ¿No tienes una cuenta? <a href="registro.html">Regístrate</a>
+            ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a>
           </p>
         </div>
       </div>
