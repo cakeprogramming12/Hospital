@@ -14,7 +14,7 @@ $clave=$_POST['pass'];
 
 
 #hacemos la consulta a la tabla que contenga los usuarios
-$query=("SELECT * FROM usuarios 
+$query=("SELECT * FROM bd_hospital.usuarios 
 	WHERE usuario='$usuario' AND contrasena='$clave'");
 
 
@@ -29,7 +29,7 @@ if($cantidad>0){
     #variable de sesion, para poder usarlo en otra paguina
 	$_SESSION['nombre_usuario']=$usuario;
 	#nos dirige a otra paguina
-    header('Location:../tablero/tablero.php');
+    header('Location:../tablero/home.php');
 }
 #los datos estan mal
 else{

@@ -6,7 +6,7 @@ $nombre_modificado = $_POST['nombre_modificado'];
 $descripcion_modificada = $_POST['descripcion_modificada'];
 
 // Query para la modificación
-$query = "UPDATE departamentos SET nombre = '$nombre_modificado', descripcion = '$descripcion_modificada' WHERE id_departamento = $id_modificar";
+$query = "UPDATE hospital.departamentos SET nombre = '$nombre_modificado', descripcion = '$descripcion_modificada' WHERE id_departamento = $id_modificar";
 
 // Ejecutar la consulta
 $consulta = pg_query($conexion, $query);

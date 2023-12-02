@@ -4,7 +4,7 @@ require '../conexionphp/conexion.php';
 $id = $_REQUEST['id_departamento'];
 
 // Query para la eliminación
-$query = "DELETE FROM departamentos WHERE Id_departamento = $id";
+$query = "DELETE FROM bd_hospital.departamentos WHERE Id_departamento = $id";
 
 // Ejecutar la consulta
 $consulta = pg_query($conexion, $query);

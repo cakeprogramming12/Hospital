@@ -2,8 +2,8 @@
 require '../conexionphp/conexion.php';
 
 // Query para la inserción
-$query = "INSERT INTO departamentos(Nombre, Descripcion)
-          VALUES('$_REQUEST[nombre]', '$_REQUEST[descripcion]')";
+$query = "INSERT INTO bd_hospital.departamentos(id_departamento, Nombre, Descripcion)
+          VALUES('$_REQUEST[id_departamento]','$_REQUEST[nombre]', '$_REQUEST[descripcion]')";
 
 // Ejecutar la consulta
 $consulta = pg_query($conexion, $query);

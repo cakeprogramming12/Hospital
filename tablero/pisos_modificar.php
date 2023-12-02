@@ -2,13 +2,12 @@
 require '../conexionphp/conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $rfc_hospital_modificar = pg_escape_string($_POST['rfc_hospital']);
-    $nombre_modificado = pg_escape_string($_POST['nombre_modificado']);
-    $email_modificado = pg_escape_string($_POST['email_modificado']);
-    $direccion_modificada = pg_escape_string($_POST['direccion_modificada']);
+    $no_piso_modificar = pg_escape_string($_POST['no_piso_modificar']);
+    $hab_cama_modificada = pg_escape_string($_POST['hab_cama_modificada']);
+    $especialidad_modificada = pg_escape_string($_POST['especialidad_modificada']);
 
     // Deshabilitar los triggers antes de la modificación
-    $disableTriggersQuery = "ALTER TABLE bd_hospital.hospital DISABLE TRIGGER ALL";
+    $disableTriggersQuery = "ALTER TABLE bd_hospital.pisos DISABLE TRIGGER ALL";
     $disableTriggersResult = pg_query($conexion, $disableTriggersQuery);
 
     if (!$disableTriggersResult) {
@@ -18,15 +17,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Query para la modificación
-    $query_modificacion = "UPDATE bd_hospital.hospital 
-                           SET nombre = '$nombre_modificado', email = '$email_modificado', direccion = '$direccion_modificada'
-                           WHERE rfc_hospital = '$rfc_hospital_modificar'";
+    $query_modificacion = "UPDATE bd_hospital.pisos 
+                           SET hab_cama = '$hab_cama_modificada', especialidad = '$especialidad_modificada'
+                           WHERE no_piso = '$no_piso_modificar'";
 
     // Ejecutar la consulta de modificación
     $consulta_modificacion = pg_query($conexion, $query_modificacion);
 
     // Habilitar los triggers después de la modificación
-    $enableTriggersQuery = "ALTER TABLE bd_hospital.hospital ENABLE TRIGGER ALL";
+    $enableTriggersQuery = "ALTER TABLE bd_hospital.pisos ENABLE TRIGGER ALL";
     $enableTriggersResult = pg_query($conexion, $enableTriggersQuery);
 
     if (!$enableTriggersResult) {
