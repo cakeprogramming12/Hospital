@@ -14,7 +14,7 @@ $clave=$_POST['pass'];
 
 
 #hacemos la consulta a la tabla que contenga los usuarios
-$query=("SELECT * FROM bd_hospital.usuarios 
+$query=("SELECT * FROM hospital.usuarios 
 	WHERE usuario='$usuario' AND contrasena='$clave'");
 
 
