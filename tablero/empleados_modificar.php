@@ -2,12 +2,13 @@
 require '../conexionphp/conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id_empleado_modificar = pg_escape_string($_POST['id_empleado_modificar']);
-    $nombre_modificado = pg_escape_string($_POST['nombre_modificado']);
-    $apellido_modificado = pg_escape_string($_POST['apellido_modificado']);
-    $puesto_modificado = pg_escape_string($_POST['puesto_modificado']);
-    $turno_modificado = pg_escape_string($_POST['turno_modificado']);
-    $id_departamento_modificado = pg_escape_string($_POST['id_departamento_modificado']);
+    // Obtener y escapar los valores del formulario
+    $id_empleado_modificar = pg_escape_string($conexion, $_POST['id_empleado_modificar']);
+    $nombre_modificado = pg_escape_string($conexion, $_POST['nombre_modificado']);
+    $apellido_modificado = pg_escape_string($conexion, $_POST['apellido_modificado']);
+    $puesto_modificado = pg_escape_string($conexion, $_POST['puesto_modificado']);
+    $turno_modificado = pg_escape_string($conexion, $_POST['turno_modificado']);
+    $id_departamento_modificado = pg_escape_string($conexion, $_POST['id_departamento_modificado']);
 
     // Deshabilitar los triggers antes de la modificación
     $disableTriggersQuery = "ALTER TABLE bd_hospital.empleado DISABLE TRIGGER ALL";
@@ -45,12 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($consulta_modificacion) {
         // Éxito: Redirigir a mensaje.php con mensaje de éxito y consulta
         $mensaje_exito = 'Registro modificado correctamente';
-        header("Location: mensaje.php?mensaje=success&mensaje_text=$mensaje_exito&consulta=".urlencode($query_modificacion));
+        header("Location: mensaje.php?mensaje=success&mensaje_text=$mensaje_exito&consulta=" . urlencode($query_modificacion));
         exit(); // Asegura que el script se detenga después de la redirección
     } else {
         // Error: Redirigir a mensaje.php con mensaje de error y consulta
         $mensaje_error = 'Error al modificar el registro. Consulta no válida';
-        header("Location: mensaje.php?mensaje=error&mensaje_text=$mensaje_error&consulta=".urlencode($query_modificacion));
+        header("Location: mensaje.php?mensaje=error&mensaje_text=$mensaje_error&consulta=" . urlencode($query_modificacion));
         exit(); // Asegura que el script se detenga después de la redirección
     }
 } else {

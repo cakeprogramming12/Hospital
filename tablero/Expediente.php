@@ -112,7 +112,18 @@
 
                             <div class="form-group">
                                 <label for="id_paciente">ID del Paciente</label>
-                                <input type="text" name="id_paciente" class="form-control" required>
+                                <select name="id_paciente" class="form-control" required>
+                                    <?php  
+                            require '../conexionphp/conexion.php';
+                            $query = "SELECT id_paciente, CONCAT(nombre, ' ', apellido) AS nombre_completo FROM bd_hospital.pacientes";
+                            $consulta = pg_query($conexion, $query);
+
+                            while($obj = pg_fetch_object($consulta)) { 
+                            ?>
+                                    <option value="<?php echo $obj->id_paciente ?>">
+                                        <?php echo $obj->nombre_completo ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Agregar Expediente</button>

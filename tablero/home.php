@@ -66,7 +66,7 @@ $nombreUsuario = $_SESSION['nombre_usuario'];
                     <a href="#"><i class="fa fa-smile-o"></i><span>Ordendes de estudio</span></a>
                 </li>
                 <li>
-                    <a href="facturacion.php"><i class="fa fa-globe"></i><span>facturacion</span></a>
+                    <a href="#"><i class="fa fa-globe"></i><span>facturacion</span></a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-envelope-o"></i><span>Contact Us</span></a>

@@ -86,7 +86,7 @@ $nombreUsuario = $_SESSION['nombre_usuario'];
     <section>
         <!-- Formulario de facturación centrado -->
         <div class="form-container">
-            <form action="procesar_factura.php" method="post">
+            <form action="factura_alta.php" method="post">
                 <h2 class="mb-4 text-success">Formulario de Facturación</h2>
 
                 <div class="form-group">

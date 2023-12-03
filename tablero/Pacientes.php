@@ -87,7 +87,17 @@
 
                             <div class="form-group">
                                 <label for="no_piso">Número de Piso</label>
-                                <input type="text" name="no_piso" class="form-control" required>
+                                <select name="no_piso" class="form-control">
+                                    <?php  
+                        require '../conexionphp/conexion.php';
+                        $query=("SELECT no_piso FROM bd_hospital.pisos");
+                        $consulta = pg_query($conexion, $query);
+
+                        while($obj=pg_fetch_object($consulta)){ ?>
+                                    <option value="<?php echo $obj->no_piso ?>"><?php echo $obj->no_piso?>
+                                    </option>
+                                    <?php } ?>
+                                </select>
                             </div>
 
                             <div class="form-group">

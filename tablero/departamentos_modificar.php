@@ -5,21 +5,44 @@ $id_modificar = $_POST['id_departamento_modificar'];
 $nombre_modificado = $_POST['nombre_modificado'];
 $descripcion_modificada = $_POST['descripcion_modificada'];
 
+// Deshabilitar triggers antes de la consulta
+$queryDisableTriggers = "ALTER TABLE bd_hospital.departamentos DISABLE TRIGGER ALL";
+$disableTriggers = pg_query($conexion, $queryDisableTriggers);
+
+// Verificar si se deshabilitaron los triggers correctamente
+if (!$disableTriggers) {
+    // Manejar el error
+    $mensaje_error = 'Error al deshabilitar triggers: ' . pg_last_error($conexion);
+    echo $mensaje_error;
+    exit();
+}
+
 // Query para la modificación
-$query = "UPDATE hospital.departamentos SET nombre = '$nombre_modificado', descripcion = '$descripcion_modificada' WHERE id_departamento = $id_modificar";
+$query = "UPDATE bd_hospital.departamentos SET nombre = '$nombre_modificado', descripcion = '$descripcion_modificada' WHERE id_departamento = $id_modificar";
+
+// Habilitar triggers después de la consulta
+$queryEnableTriggers = "ALTER TABLE bd_hospital.departamentos ENABLE TRIGGER ALL";
+$enableTriggers = pg_query($conexion, $queryEnableTriggers);
+
+// Verificar si se habilitaron los triggers correctamente
+if (!$enableTriggers) {
+    // Manejar el error
+    $mensaje_error = 'Error al habilitar triggers: ' . pg_last_error($conexion);
+    echo $mensaje_error;
+    exit();
+}
 
 // Ejecutar la consulta
 $consulta = pg_query($conexion, $query);
 
-// Redirigir a mensaje.php con el resultado de la consulta
+// Imprimir el resultado de la consulta
 if ($consulta) {
     // Éxito: Redirigir a mensaje.php con mensaje de éxito y consulta
-    $mensaje_exito = 'Registro modificado correctamente';
+    $mensaje_exito = 'Registro dado de alta correctamente';
     header("Location: mensaje.php?mensaje=success&mensaje_text=$mensaje_exito&consulta=".urlencode($query));
     exit(); // Asegura que el script se detenga después de la redirección
 } else {
-    // Error: Redirigir a mensaje.php con mensaje de error y consulta
-    $mensaje_error = 'Error al modificar el registro. Consulta no válida';
+    $mensaje_error = 'Error al dar de alta el registro. Registro duplicado';
     header("Location: mensaje.php?mensaje=error&mensaje_text=$mensaje_error&consulta=".urlencode($query));
     exit(); // Asegura que el script se detenga después de la redirección
 }

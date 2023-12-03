@@ -16,7 +16,7 @@ if ($consulta) {
     exit(); // Asegura que el script se detenga después de la redirección
 } else {
     // Error: Redirigir a mensaje.php con mensaje de error y consulta
-    $mensaje_error = 'Error al dar de alta el registro. Registro duplicado';
+    $mensaje_error = 'Error al dar de alta el registro.';
     header("Location: mensaje.php?mensaje=error&mensaje_text=$mensaje_error&consulta=".urlencode($query));
     exit(); // Asegura que el script se detenga después de la redirección
 }

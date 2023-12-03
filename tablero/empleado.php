@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrar departamentos</title>
+    <title>Administrar empleados</title>
     <!-- Agregamos la hoja de estilos de Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
@@ -72,7 +72,21 @@
 
                             <div class="form-group">
                                 <label for="id_departamento">ID Departamento:</label>
-                                <input type="text" name="id_departamento" class="form-control">
+                                <div id="departamento-container">
+                                    <input type="text" name="id_departamento" class="form-control">
+                                </div>
+                                <!-- Agregar enlaces para cargar más resultados -->
+                                <?php
+                                require '../conexionphp/conexion.php';
+                                $registrosPorPagina = 10;
+                                $queryTotal = "SELECT COUNT(*) FROM bd_hospital.departamentos";
+                                $totalRegistros = pg_fetch_row(pg_query($conexion, $queryTotal))[0];
+                                $totalPaginas = ceil($totalRegistros / $registrosPorPagina);
+
+                                for ($i = 1; $i <= $totalPaginas; $i++) {
+                                    echo "<a href='tu_pagina.php?pagina=$i'>$i</a> ";
+                                }
+                                ?>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Agregar Empleado</button>
@@ -80,7 +94,6 @@
                     </div>
                 </div>
             </div>
-
 
             <!-- Eliminar Empleado -->
             <div class="col-md-6">
@@ -92,17 +105,9 @@
                         <form action="empleados_delete.php" method="post">
                             <div class="form-group">
                                 <label for="id_empleado_eliminar">Nombre del empleado</label>
-                                <select name="id_empleado" class="form-control">
-                                    <?php  
-                        require '../conexionphp/conexion.php';
-                        $query=("SELECT id_empleado, nombre FROM bd_hospital.empleado");
-                        $consulta = pg_query($conexion, $query);
-
-                        while($obj=pg_fetch_object($consulta)){ ?>
-                                    <option value="<?php echo $obj->id_empleado ?>"><?php echo $obj->nombre?>
-                                    </option>
-                                    <?php } ?>
-                                </select>
+                                <div id="eliminar-empleado-container">
+                                    <input type="text" name="id_empleado" class="form-control">
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-danger">Eliminar Empleado</button>
                         </form>
@@ -119,19 +124,10 @@
                     <div class="card-body">
                         <form action="empleados_modificar.php" method="post">
                             <div class="form-group">
-                                <label for="id_empleado_modificar">Nombre del empleado</label>
-                                <select name="id_empleado_modificar" class="form-control" required>
-                                    <?php  
-                        require '../conexionphp/conexion.php';
-                        $query = "SELECT id_empleado, nombre FROM bd_hospital.empleado";
-                        $consulta = pg_query($conexion, $query);
-
-                        while($obj = pg_fetch_object($consulta)) { 
-                        ?>
-                                    <option value="<?php echo $obj->id_empleado ?>"><?php echo $obj->nombre ?>
-                                    </option>
-                                    <?php } ?>
-                                </select>
+                                <label for="id_empleado_modificar">ID del empleado</label>
+                                <div id="modificar-empleado-container">
+                                    <input type="text" name="id_empleado_modificar" class="form-control" required>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="nombre_modificado">Nuevo Nombre:</label>
@@ -159,6 +155,7 @@
                 </div>
             </div>
 
+
             <!-- Consultar Empleado -->
             <div class="col-md-6">
                 <div class="card">
@@ -168,51 +165,17 @@
                     <div class="card-body">
                         <form action="empleados_consultar.php" method="post">
                             <div class="form-group">
-                                <label for="id_empleado_consultar">Nombre del empleado</label>
-                                <select name="id_empleado_consultar" class="form-control" required>
-                                    <?php  
-                        require '../conexionphp/conexion.php';
-                        $query = "SELECT id_empleado, nombre FROM bd_hospital.empleado";
-                        $consulta = pg_query($conexion, $query);
-
-                        while($obj = pg_fetch_object($consulta)) { 
-                        ?>
-                                    <option value="<?php echo $obj->id_empleado ?>"><?php echo $obj->nombre ?>
-                                    </option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Columnas a Consultar:</label><br>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="consultar_nombre" value="1">
-                                    <label class="form-check-label">Nombre</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="consultar_apellido" value="1">
-                                    <label class="form-check-label">Apellido</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="consultar_puesto" value="1">
-                                    <label class="form-check-label">Puesto</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="consultar_turno" value="1">
-                                    <label class="form-check-label">Turno</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="consultar_id_departamento"
-                                        value="1">
-                                    <label class="form-check-label">ID Departamento</label>
+                                <label for="id_empleado_consultar">ID del empleado</label>
+                                <div id="consultar-empleado-container">
+                                    <input type="text" name="id_empleado_consultar" class="form-control" required>
                                 </div>
                             </div>
+                            <!-- (otras entradas para consultar) -->
                             <button type="submit" class="btn btn-info text-white">Consultar Empleado</button>
                         </form>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </main>
 
