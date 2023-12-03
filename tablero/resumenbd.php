@@ -15,6 +15,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Resumen de la base de datos</h1>
+                    </td>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -24,6 +25,8 @@
                 </div>
             </div>
         </div>
+
+
     </section>
 
     <section class="content">
@@ -40,7 +43,7 @@
                                     <tr>
                                         <th>Tabla</th>
                                         <th>Número de Registros</th>
-                                        <th>Descargar</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,7 +53,7 @@
                                         <td><?php  
   require '../conexionphp/conexion.php';
 
-    $query = "SELECT COUNT(*) AS total_registros FROM departamentos";
+    $query = "SELECT COUNT(*) AS total_registros FROM bd_hospital.departamentos";
     $consulta = pg_query($conexion, $query);
 
     if ($consulta) {
@@ -63,8 +66,6 @@
 
     pg_close($conexion);
     ?></td>
-                                        <td><a href="reportes.php?tabla=departamentos" class="btn btn-primary">Descargar
-                                                Reporte</a></td>
 
                                     </tr>
 
@@ -77,7 +78,7 @@
                                         <td><?php  
   require '../conexionphp/conexion.php';
 
-    $query = "SELECT COUNT(*) AS total_registros FROM hospital";
+    $query = "SELECT COUNT(*) AS total_registros FROM bd_hospital.hospital";
     $consulta = pg_query($conexion, $query);
 
     if ($consulta) {
@@ -90,12 +91,168 @@
 
     pg_close($conexion);
     ?></td>
-                                        <td><a href="reportes.php?tabla=hospital" class="btn btn-primary">Descargar
-                                                Reporte</a></td>
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <td>empleados</td>
+                                        <td><?php  
+  require '../conexionphp/conexion.php';
+
+    $query = "SELECT COUNT(*) AS total_registros FROM bd_hospital.empleado";
+    $consulta = pg_query($conexion, $query);
+
+    if ($consulta) {
+        $resultado = pg_fetch_assoc($consulta);
+        $total_registros = $resultado['total_registros'];
+        echo "Total de registros: $total_registros";
+    } else {
+        echo "Error al ejecutar la consulta.";
+    }
+
+    pg_close($conexion);
+    ?></td>
 
                                     </tr>
 
 
+
+                                    <tr>
+                                        <td>expedientes</td>
+                                        <td><?php  
+  require '../conexionphp/conexion.php';
+
+    $query = "SELECT COUNT(*) AS total_registros FROM bd_hospital.expediente";
+    $consulta = pg_query($conexion, $query);
+
+    if ($consulta) {
+        $resultado = pg_fetch_assoc($consulta);
+        $total_registros = $resultado['total_registros'];
+        echo "Total de registros: $total_registros";
+    } else {
+        echo "Error al ejecutar la consulta.";
+    }
+
+    pg_close($conexion);
+    ?></td>
+
+                                    </tr>
+
+
+
+
+
+                                    <tr>
+                                        <td>Transporte</td>
+                                        <td><?php  
+  require '../conexionphp/conexion.php';
+
+    $query = "SELECT COUNT(*) AS total_registros FROM bd_hospital.transporte";
+    $consulta = pg_query($conexion, $query);
+
+    if ($consulta) {
+        $resultado = pg_fetch_assoc($consulta);
+        $total_registros = $resultado['total_registros'];
+        echo "Total de registros: $total_registros";
+    } else {
+        echo "Error al ejecutar la consulta.";
+    }
+
+    pg_close($conexion);
+    ?></td>
+
+                                    </tr>
+
+
+
+
+
+                                    <td>Pisos</td>
+                                    <td><?php  
+  require '../conexionphp/conexion.php';
+
+    $query = "SELECT COUNT(*) AS total_registros FROM bd_hospital.pisos";
+    $consulta = pg_query($conexion, $query);
+
+    if ($consulta) {
+        $resultado = pg_fetch_assoc($consulta);
+        $total_registros = $resultado['total_registros'];
+        echo "Total de registros: $total_registros";
+    } else {
+        echo "Error al ejecutar la consulta.";
+    }
+
+    pg_close($conexion);
+    ?></td>
+
+                                    </tr>
+
+
+
+                                    <td>Productos</td>
+                                    <td><?php  
+  require '../conexionphp/conexion.php';
+
+    $query = "SELECT COUNT(*) AS total_registros FROM  bd_hospital.producto";
+    $consulta = pg_query($conexion, $query);
+
+    if ($consulta) {
+        $resultado = pg_fetch_assoc($consulta);
+        $total_registros = $resultado['total_registros'];
+        echo "Total de registros: $total_registros";
+    } else {
+        echo "Error al ejecutar la consulta.";
+    }
+
+    pg_close($conexion);
+    ?></td>
+
+                                    </tr>
+
+
+                                    <td>Proveedores</td>
+                                    <td><?php  
+  require '../conexionphp/conexion.php';
+
+    $query = "SELECT COUNT(*) AS total_registros FROM  bd_hospital.proveedores";
+    $consulta = pg_query($conexion, $query);
+
+    if ($consulta) {
+        $resultado = pg_fetch_assoc($consulta);
+        $total_registros = $resultado['total_registros'];
+        echo "Total de registros: $total_registros";
+    } else {
+        echo "Error al ejecutar la consulta.";
+    }
+
+    pg_close($conexion);
+    ?></td>
+
+                                    </tr>
+
+
+
+
+                                    <td>Usuarios del sistema</td>
+                                    <td><?php  
+  require '../conexionphp/conexion.php';
+
+    $query = "SELECT COUNT(*) AS total_registros FROM  bd_hospital.usuarios";
+    $consulta = pg_query($conexion, $query);
+
+    if ($consulta) {
+        $resultado = pg_fetch_assoc($consulta);
+        $total_registros = $resultado['total_registros'];
+        echo "Total de registros: $total_registros";
+    } else {
+        echo "Error al ejecutar la consulta.";
+    }
+
+    pg_close($conexion);
+    ?></td>
+
+                                    </tr>
 
 
 
@@ -111,6 +268,9 @@
 
         </div>
     </section>
+
+
+
 
     <!-- Agrega tus scripts al final del cuerpo si es necesario -->
 

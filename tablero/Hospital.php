@@ -7,6 +7,14 @@
     <title>Administrar Hospitales</title>
     <!-- Agregamos la hoja de estilos de Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+    .card-body {
+        max-height: 400px;
+        /* Establece la altura máxima del contenedor del formulario */
+        overflow-y: auto;
+        /* Hace que el contenido sea desplazable verticalmente si excede la altura máxima */
+    }
+    </style>
 </head>
 
 <body>
@@ -84,7 +92,7 @@
                                 <select name="rfc_hospital" class="form-control" required>
                                     <?php  
                             require '../conexionphp/conexion.php';
-                            $query = "SELECT  rfc_hospital, nombre FROM hospital";
+                            $query = "SELECT  rfc_hospital, nombre FROM bd_hospital.hospital";
                             $consulta = pg_query($conexion, $query);
 
                             while($obj = pg_fetch_object($consulta)) { 
@@ -109,13 +117,13 @@
                         <h3 class="card-title">Modificar Hospital</h3>
                     </div>
                     <div class="card-body">
-                        <form action="hospitales_modificar.php" method="post">
+                        <form action="Hospital_modificar.php" method="post">
                             <div class="form-group">
                                 <label for="id_hospital_modificar">Nombre del hospital</label>
                                 <select name="rfc_hospital" class="form-control" required>
                                     <?php  
                             require '../conexionphp/conexion.php';
-                            $query = "SELECT  rfc_hospital, nombre FROM hospital";
+                            $query = "SELECT  rfc_hospital, nombre FROM bd_hospital.hospital";
                             $consulta = pg_query($conexion, $query);
 
                             while($obj = pg_fetch_object($consulta)) { 
@@ -150,13 +158,13 @@
                         <h3 class="card-title">Consultar Hospital</h3>
                     </div>
                     <div class="card-body">
-                        <form action="hospitales_consultar.php" method="post">
+                        <form action="Hospital_consultar.php" method="post">
                             <div class="form-group">
                                 <label for="id_hospital_consultar">Nombre del hospital</label>
                                 <select name="rfc_hospital" class="form-control" required>
                                     <?php  
                             require '../conexionphp/conexion.php';
-                            $query = "SELECT  rfc_hospital, nombre FROM hospital";
+                            $query = "SELECT  rfc_hospital, nombre FROM bd_hospital.hospital";
                             $consulta = pg_query($conexion, $query);
 
                             while($obj = pg_fetch_object($consulta)) { 
@@ -187,6 +195,10 @@
                     </div>
                 </div>
             </div>
+
+
+
+
         </div>
     </main>
 

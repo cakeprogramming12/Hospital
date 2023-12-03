@@ -12,14 +12,16 @@ if (!$disableTriggerConsulta) {
     echo "Error al deshabilitar el trigger: " . pg_last_error($conexion);
 } else {
     // Datos que deseas insertar (asegúrate de escapar los valores para evitar inyecciones SQL)
-    $rfc_hospital = pg_escape_string($_REQUEST['rfc_hospital']);
-    $nombre = pg_escape_string($_REQUEST['nombre']);
-    $direccion = pg_escape_string($_REQUEST['direccion']);
-    $email = pg_escape_string($_REQUEST['email']);
+    $fecha = pg_escape_string($_REQUEST['fecha']);
+    $subtotal = pg_escape_string($_REQUEST['subtotal']);
+    $cfdi = pg_escape_string($_REQUEST['cfdi']);
+    $id_cuenta_prod = pg_escape_string($_REQUEST['id_cuenta_prod']);
+    $id_cuenta_serv = pg_escape_string($_REQUEST['id_cuenta_serv']);
+    $id_responsable = pg_escape_string($_REQUEST['id_responsable']);
 
     // Query para la inserción (utiliza comillas simples para los valores de cadena)
-    $query = "INSERT INTO bd_hospital.hospital (rfc_hospital, nombre, direccion, email)
-              VALUES ('$rfc_hospital', '$nombre', '$direccion', '$email')";
+    $query = "INSERT INTO bd_hospital.facturacion (fecha, subtotal, cfdi, id_cuenta_prod, id_cuenta_serv, id_responsable)
+              VALUES ('$fecha', '$subtotal', '$cfdi', '$id_cuenta_prod', '$id_cuenta_serv', '$id_responsable')";
 
     // Ejecutar la consulta de inserción
     $consulta = pg_query($conexion, $query);
@@ -33,7 +35,7 @@ if (!$disableTriggerConsulta) {
 
     // Habilitar triggers nuevamente
     $enableTriggerQuery = "ALTER TABLE bd_hospital.hospital ENABLE TRIGGER ALL";
-	
+
     // Ejecutar la consulta para habilitar el trigger
     $enableTriggerConsulta = pg_query($conexion, $enableTriggerQuery);
 

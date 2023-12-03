@@ -2,13 +2,12 @@
 require '../conexionphp/conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $rfc_hospital_consultar = pg_escape_string($_POST['rfc_hospital']);
-    $consultar_nombre = isset($_POST['consultar_nombre']) ? true : false;
-    $consultar_email = isset($_POST['consultar_email']) ? true : false;
-    $consultar_direccion = isset($_POST['consultar_direccion']) ? true : false;
+    $no_piso_consultar = pg_escape_string($_POST['no_piso_consultar']);
+    $consultar_hab_cama = isset($_POST['consultar_hab_cama']) ? true : false;
+    $consultar_especialidad = isset($_POST['consultar_especialidad']) ? true : false;
 
     // Deshabilitar los triggers antes de la consulta
-    $disableTriggersQuery = "ALTER TABLE bd_hospital.hospital DISABLE TRIGGER ALL";
+    $disableTriggersQuery = "ALTER TABLE bd_hospital.pisos DISABLE TRIGGER ALL";
     $disableTriggersResult = pg_query($conexion, $disableTriggersQuery);
 
     if (!$disableTriggersResult) {
@@ -19,30 +18,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Construir la lista de columnas a seleccionar
     $columnas_seleccionadas = [];
-    if ($consultar_nombre) {
-        $columnas_seleccionadas[] = 'nombre';
+    if ($consultar_hab_cama) {
+        $columnas_seleccionadas[] = 'hab_cama';
     }
-    if ($consultar_email) {
-        $columnas_seleccionadas[] = 'email';
-    }
-    if ($consultar_direccion) {
-        $columnas_seleccionadas[] = 'direccion';
+    if ($consultar_especialidad) {
+        $columnas_seleccionadas[] = 'especialidad';
     }
 
     // Si no se selecciona ninguna columna, mostrar todas
     if (empty($columnas_seleccionadas)) {
-        $columnas_seleccionadas = ['rfc_hospital', 'nombre', 'direccion', 'email'];
+        $columnas_seleccionadas = ['no_piso', 'hab_cama', 'especialidad'];
     }
 
     // Construir la consulta
     $columnas_query = implode(", ", $columnas_seleccionadas);
-    $query = "SELECT $columnas_query FROM bd_hospital.hospital WHERE rfc_hospital = '$rfc_hospital_consultar'";
+    $query = "SELECT $columnas_query FROM bd_hospital.pisos WHERE no_piso = '$no_piso_consultar'";
 
     // Ejecutar la consulta
     $consulta = pg_query($conexion, $query);
 
     // Habilitar los triggers después de la consulta
-    $enableTriggersQuery = "ALTER TABLE bd_hospital.hospital ENABLE TRIGGER ALL";
+    $enableTriggersQuery = "ALTER TABLE bd_hospital.pisos ENABLE TRIGGER ALL";
     $enableTriggersResult = pg_query($conexion, $enableTriggersQuery);
 
     if (!$enableTriggersResult) {
@@ -67,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tabla_resultado .= '</tr>';
     $tabla_resultado .= '</table>';
 
-    // Redirigir a mensaje.php con el resultado de la consulta
+    // Redirigir a mensajeConsultas.php con el resultado de la consulta
     header("Location: mensajeConsultas.php?mensaje=success&mensaje_text=Consulta realizada con éxito&consulta=".urlencode($query)."&tabla_resultado=".urlencode($tabla_resultado));
     exit(); // Asegura que el script se detenga después de la redirección
 } else {

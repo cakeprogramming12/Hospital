@@ -37,15 +37,15 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="Empleado.php" class="nav-link" style="cursor: pointer;">
+                            <a href="empleado.php" class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Empleado</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','productos.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="Expediente.php" class="nav-link" style="cursor: pointer;">
+
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Expediente</p>
                             </a>
@@ -60,16 +60,15 @@
 
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','productos.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="Pacientes.php" class="nav-link" style="cursor: pointer;">
+
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pacientes</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','productos.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="Responsable.php" class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Responsable</p>
                             </a>
@@ -77,8 +76,7 @@
 
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','productos.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="pisos.php" class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pisos</p>
                             </a>
@@ -87,186 +85,6 @@
                     </ul>
 
                 </li>
-
-                <!-- MENU DE Almacenamiento y Inventario-->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-warehouse"></i>
-                        <p>
-                            Almacenamiento y Inventario
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-
-                    <ul class="nav nav-treeview">
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/categorias.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="fas fa-archive nav-icon"></i>
-                                <p>Almacen_insumos</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="fas fa-tint nav-icon"></i>
-                                <p>Hemocomponentes</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="fas fa-box nav-icon"></i>
-                                <p>Prod_entrada</p>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="fas fa-shopping-cart nav-icon"></i>
-                                <p>Producto</p>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="fas fa-truck nav-icon"></i>
-                                <p>Proveedores</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <!-- Logística y Transporte-->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-shipping-fast nav-icon"></i>
-                        <p>
-                            Logística y Transporte
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-
-                    <ul class="nav nav-treeview">
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/categorias.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Prestamo_transporte</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Transporte</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- Servicios y Atención Médica:-->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-hospital nav-icon"></i>
-                        <p>
-                            Servicios y Atención Médica
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-
-                    <ul class="nav nav-treeview">
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/categorias.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Cocina</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Facturación</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Historial_cuenta_productos</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Historial_cuenta_servicios</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Imagenología</p>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Laboratorio</p>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Mantenimiento_gral</p>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Orden_estudio</p>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/productos.php')" class="nav-link"
-                                style="cursor: pointer;">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Servicios</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-
-
-
-
 
 
                 <!-- Configuracion-->
@@ -282,10 +100,9 @@
                     <ul class="nav nav-treeview">
 
                         <li class="nav-item">
-                            <a onclick="cargarContenido('content-wrapper','modulos/categorias.php')" class="nav-link"
-                                style="cursor: pointer;">
+                            <a href="ingresarMillonRegisros.php" class="nav-link" style="cursor: pointer;">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Usuarios</p>
+                                <p>Algoritmo millon</p>
                             </a>
                         </li>
 
@@ -296,7 +113,7 @@
 
             <ul class="nav nav-pills nav-sidebar nav_profile">
                 <li class="nav-item">
-                    <a href="../principal/index.html" class="nav-link">
+                    <a href="../Login/login.html" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>
                             Cerrar Sesion

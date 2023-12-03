@@ -2,8 +2,8 @@
 require '../conexionphp/conexion.php';
 
 // Query para la inserción
-$query = "INSERT INTO departamentos(Nombre, Descripcion)
-          VALUES('$_REQUEST[nombre]', '$_REQUEST[descripcion]')";
+$query = "INSERT INTO bd_hospital.departamentos(id_departamento, Nombre, Descripcion)
+          VALUES('$_REQUEST[id_departamento]','$_REQUEST[nombre]', '$_REQUEST[descripcion]')";
 
 // Ejecutar la consulta
 $consulta = pg_query($conexion, $query);
@@ -16,7 +16,7 @@ if ($consulta) {
     exit(); // Asegura que el script se detenga después de la redirección
 } else {
     // Error: Redirigir a mensaje.php con mensaje de error y consulta
-    $mensaje_error = 'Error al dar de alta el registro. Registro duplicado';
+    $mensaje_error = 'Error al dar de alta el registro.';
     header("Location: mensaje.php?mensaje=error&mensaje_text=$mensaje_error&consulta=".urlencode($query));
     exit(); // Asegura que el script se detenga después de la redirección
 }

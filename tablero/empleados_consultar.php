@@ -2,13 +2,15 @@
 require '../conexionphp/conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $rfc_hospital_consultar = pg_escape_string($_POST['rfc_hospital']);
+    $id_empleado_consultar = pg_escape_string($_POST['id_empleado_consultar']);
     $consultar_nombre = isset($_POST['consultar_nombre']) ? true : false;
-    $consultar_email = isset($_POST['consultar_email']) ? true : false;
-    $consultar_direccion = isset($_POST['consultar_direccion']) ? true : false;
+    $consultar_apellido = isset($_POST['consultar_apellido']) ? true : false;
+    $consultar_puesto = isset($_POST['consultar_puesto']) ? true : false;
+    $consultar_turno = isset($_POST['consultar_turno']) ? true : false;
+    $consultar_id_departamento = isset($_POST['consultar_id_departamento']) ? true : false;
 
     // Deshabilitar los triggers antes de la consulta
-    $disableTriggersQuery = "ALTER TABLE bd_hospital.hospital DISABLE TRIGGER ALL";
+    $disableTriggersQuery = "ALTER TABLE bd_hospital.empleado DISABLE TRIGGER ALL";
     $disableTriggersResult = pg_query($conexion, $disableTriggersQuery);
 
     if (!$disableTriggersResult) {
@@ -22,27 +24,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($consultar_nombre) {
         $columnas_seleccionadas[] = 'nombre';
     }
-    if ($consultar_email) {
-        $columnas_seleccionadas[] = 'email';
+    if ($consultar_apellido) {
+        $columnas_seleccionadas[] = 'apellido';
     }
-    if ($consultar_direccion) {
-        $columnas_seleccionadas[] = 'direccion';
+    if ($consultar_puesto) {
+        $columnas_seleccionadas[] = 'puesto';
+    }
+    if ($consultar_turno) {
+        $columnas_seleccionadas[] = 'turno';
+    }
+    if ($consultar_id_departamento) {
+        $columnas_seleccionadas[] = 'id_departamento';
     }
 
     // Si no se selecciona ninguna columna, mostrar todas
     if (empty($columnas_seleccionadas)) {
-        $columnas_seleccionadas = ['rfc_hospital', 'nombre', 'direccion', 'email'];
+        $columnas_seleccionadas = ['id_empleado', 'nombre', 'apellido', 'puesto', 'turno', 'id_departamento'];
     }
 
     // Construir la consulta
     $columnas_query = implode(", ", $columnas_seleccionadas);
-    $query = "SELECT $columnas_query FROM bd_hospital.hospital WHERE rfc_hospital = '$rfc_hospital_consultar'";
+    $query = "SELECT $columnas_query FROM bd_hospital.empleado WHERE id_empleado = '$id_empleado_consultar'";
 
     // Ejecutar la consulta
     $consulta = pg_query($conexion, $query);
 
     // Habilitar los triggers después de la consulta
-    $enableTriggersQuery = "ALTER TABLE bd_hospital.hospital ENABLE TRIGGER ALL";
+    $enableTriggersQuery = "ALTER TABLE bd_hospital.empleado ENABLE TRIGGER ALL";
     $enableTriggersResult = pg_query($conexion, $enableTriggersQuery);
 
     if (!$enableTriggersResult) {

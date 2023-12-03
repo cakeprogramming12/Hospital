@@ -1,10 +1,10 @@
 <?php
 require '../conexionphp/conexion.php';
 
-$id = pg_escape_string($_REQUEST['rfc_hospital']);
+$id_paciente = pg_escape_string($_REQUEST['id_paciente']);
 
 // Deshabilitar triggers antes de la eliminación
-$disableTriggerQuery = "ALTER TABLE bd_hospital.hospital DISABLE TRIGGER ALL";
+$disableTriggerQuery = "ALTER TABLE bd_hospital.pacientes DISABLE TRIGGER ALL";
 
 // Ejecutar la consulta para deshabilitar los triggers
 $disableTriggerConsulta = pg_query($conexion, $disableTriggerQuery);
@@ -14,20 +14,20 @@ if (!$disableTriggerConsulta) {
     echo "Error al deshabilitar los triggers: " . pg_last_error($conexion);
 } else {
     // Query para la eliminación
-    $query = "DELETE FROM bd_hospital.hospital WHERE rfc_hospital = '$id'";
+    $query = "DELETE FROM bd_hospital.pacientes WHERE id_paciente = '$id_paciente'";
 
     // Ejecutar la consulta de eliminación
     $consulta = pg_query($conexion, $query);
 
     // Verificar si la consulta de eliminación se ejecutó correctamente
     if (!$consulta) {
-        echo "Error al eliminar el registro: " . pg_last_error($conexion);
+        echo "Error al eliminar el paciente: " . pg_last_error($conexion);
     } else {
-        echo "Registro eliminado correctamente";
+        echo "Paciente eliminado correctamente";
     }
 
     // Habilitar triggers nuevamente
-    $enableTriggerQuery = "ALTER TABLE bd_hospital.hospital ENABLE TRIGGER ALL";
+    $enableTriggerQuery = "ALTER TABLE bd_hospital.pacientes ENABLE TRIGGER ALL";
 
     // Ejecutar la consulta para habilitar los triggers
     $enableTriggerConsulta = pg_query($conexion, $enableTriggerQuery);

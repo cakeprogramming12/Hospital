@@ -21,7 +21,7 @@ if (empty($columnas_seleccionadas)) {
 
 // Construir la consulta
 $columnas_query = implode(", ", $columnas_seleccionadas);
-$query = "SELECT $columnas_query FROM departamentos WHERE id_departamento = $id";
+$query = "SELECT $columnas_query FROM bd_hospital.departamentos WHERE id_departamento = $id";
 
 // Ejecutar la consulta
 $consulta = pg_query($conexion, $query);

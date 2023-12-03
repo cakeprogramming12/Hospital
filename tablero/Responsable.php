@@ -39,23 +39,19 @@
 
     <main class="container mt-4">
         <div class="row">
-
-            <!-- Agregar Departamento -->
+            <!-- Agregar Responsable -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        <h3 class="card-title">Agregar Departamento</h3>
+                        <h3 class="card-title">Agregar Responsable</h3>
                     </div>
                     <div class="card-body">
-
-                        <form action="departamentos_alta.php" method="post">
+                        <form action="responsable_alta.php" method="post">
 
                             <div class="form-group">
                                 <label for="nombre">ID:</label>
-                                <input type="text" name="id_departamento" class="form-control" required>
+                                <input type="text" name="id_responsable" class="form-control" required>
                             </div>
-
-
 
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
@@ -63,71 +59,93 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="descripcion">Descripción:</label>
-                                <textarea name="descripcion" class="form-control" required></textarea>
+                                <label for="apellido">Apellido:</label>
+                                <input type="text" name="apellido" class="form-control" required>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Agregar Departamento</button>
+                            <div class="form-group">
+                                <label for="fec_nac">Fecha de Nacimiento:</label>
+                                <input type="date" name="fec_nac" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sexo">Sexo:</label>
+                                <input type="text" name="sexo" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="telefono">Teléfono:</label>
+                                <input type="text" name="telefono" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="direccion">Dirección:</label>
+                                <textarea name="direccion" class="form-control" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rfc">RFC:</label>
+                                <input type="text" name="rfc" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_paciente">ID del Paciente:</label>
+                                <input type="text" name="id_paciente" class="form-control">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Agregar Responsable</button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- Eliminar Departamento -->
+            <!-- Eliminar Responsable -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header bg-danger text-white">
-                        <h3 class="card-title">Eliminar Departamento</h3>
+                        <h3 class="card-title">Eliminar Responsable</h3>
                     </div>
                     <div class="card-body">
-                        <form action="departamentos_delete.php" method="post">
-
-
+                        <form action="responsable_delete.php" method="post">
                             <div class="form-group">
-                                <label for="id_departamento_eliminar">Nombre del departamento</label>
-                                <select name="id_departamento" class="form-control">
-
+                                <label for="id_responsable_eliminar">ID del Responsable</label>
+                                <select name="id_responsable" class="form-control">
                                     <?php  
-                                require '../conexionphp/conexion.php';
-                                $query=("SELECT id_departamento, nombre FROM bd_hospital.departamentos");
-                                $consulta = pg_query($conexion, $query);
+                        require '../conexionphp/conexion.php';
+                        $query=("SELECT id_responsable, nombre FROM hospital.responsable");
+                        $consulta = pg_query($conexion, $query);
 
-                                while($obj=pg_fetch_object($consulta)){ ?>
-
-                                    <option value="<?php echo $obj->id_departamento ?>"><?php echo $obj->nombre?>
+                        while($obj=pg_fetch_object($consulta)){ ?>
+                                    <option value="<?php echo $obj->id_responsable ?>"><?php echo $obj->nombre ?>
                                     </option>
-                                    <?php
-                                }
-                                ?>
+                                    <?php } ?>
                                 </select>
                             </div>
-
-
-                            <button type="submit" class="btn btn-danger">Eliminar Departamento</button>
+                            <button type="submit" class="btn btn-danger">Eliminar Responsable</button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- Modificar Departamento -->
+            <!-- Modificar Responsable -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header bg-warning text-white">
-                        <h3 class="card-title">Modificar Departamento</h3>
+                        <h3 class="card-title">Modificar Responsable</h3>
                     </div>
                     <div class="card-body">
-                        <form action="departamentos_modificar.php" method="post">
+                        <form action="responsable_modificar.php" method="post">
                             <div class="form-group">
-                                <label for="id_departamento_modificar">Nombre del departamento</label>
-                                <select name="id_departamento_modificar" class="form-control" required>
+                                <label for="id_responsable_modificar">ID del Responsable</label>
+                                <select name="id_responsable_modificar" class="form-control" required>
                                     <?php  
-                            require '../conexionphp/conexion.php';
-                            $query = "SELECT id_departamento, nombre FROM bd_hospital.departamentos";
-                            $consulta = pg_query($conexion, $query);
+                        require '../conexionphp/conexion.php';
+                        $query = "SELECT id_responsable, nombre FROM hospital.responsable";
+                        $consulta = pg_query($conexion, $query);
 
-                            while($obj = pg_fetch_object($consulta)) { 
+                        while($obj = pg_fetch_object($consulta)) { 
                         ?>
-                                    <option value="<?php echo $obj->id_departamento ?>"><?php echo $obj->nombre ?>
+                                    <option value="<?php echo $obj->id_responsable ?>"><?php echo $obj->nombre ?>
                                     </option>
                                     <?php } ?>
                                 </select>
@@ -137,51 +155,41 @@
                                 <input type="text" name="nombre_modificado" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="descripcion_modificada">Nueva Descripción:</label>
-                                <textarea name="descripcion_modificada" class="form-control" required></textarea>
+                                <label for="apellido_modificado">Nuevo Apellido:</label>
+                                <input type="text" name="apellido_modificado" class="form-control" required>
                             </div>
-                            <button type="submit" class="btn btn-warning text-white">Modificar Departamento</button>
+                            <!-- Agregar los campos adicionales que deseas modificar -->
+                            <button type="submit" class="btn btn-warning text-white">Modificar Responsable</button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- Consultar Departamento -->
+            <!-- Consultar Responsable -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header bg-info text-white">
-                        <h3 class="card-title">Consultar Departamento</h3>
+                        <h3 class="card-title">Consultar Responsable</h3>
                     </div>
                     <div class="card-body">
-                        <form action="departamentos_consultar.php" method="post">
+                        <form action="responsable_consultar.php" method="post">
                             <div class="form-group">
-                                <label for="id_departamento_consultar">Nombre del departamento</label>
-                                <select name="id_departamento_consultar" class="form-control" required>
+                                <label for="id_responsable_consultar">ID del Responsable</label>
+                                <select name="id_responsable_consultar" class="form-control" required>
                                     <?php  
                         require '../conexionphp/conexion.php';
-                        $query = "SELECT id_departamento, nombre FROM bd_hospital.departamentos";
+                        $query = "SELECT id_responsable, nombre FROM hospital.responsable";
                         $consulta = pg_query($conexion, $query);
 
                         while($obj = pg_fetch_object($consulta)) { 
                         ?>
-                                    <option value="<?php echo $obj->id_departamento ?>"><?php echo $obj->nombre ?>
+                                    <option value="<?php echo $obj->id_responsable ?>"><?php echo $obj->nombre ?>
                                     </option>
                                     <?php } ?>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>Columnas a Consultar:</label><br>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="consultar_nombre" value="1">
-                                    <label class="form-check-label">Nombre</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="consultar_descripcion"
-                                        value="1">
-                                    <label class="form-check-label">Descripción</label>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-info text-white">Consultar Departamento</button>
+                            <!-- Agregar las columnas adicionales que deseas consultar -->
+                            <button type="submit" class="btn btn-info text-white">Consultar Responsable</button>
                         </form>
                     </div>
                 </div>

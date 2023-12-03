@@ -2,13 +2,16 @@
 require '../conexionphp/conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $rfc_hospital_modificar = pg_escape_string($_POST['rfc_hospital']);
+    $id_paciente_modificar = pg_escape_string($_POST['id_paciente_modificar']);
     $nombre_modificado = pg_escape_string($_POST['nombre_modificado']);
-    $email_modificado = pg_escape_string($_POST['email_modificado']);
+    $apellido_modificado = pg_escape_string($_POST['apellido_modificado']);
+    $fec_nac_modificada = pg_escape_string($_POST['fec_nac_modificada']);
+    $sexo_modificado = pg_escape_string($_POST['sexo_modificado']);
+    $telefono_modificado = pg_escape_string($_POST['telefono_modificado']);
     $direccion_modificada = pg_escape_string($_POST['direccion_modificada']);
 
     // Deshabilitar los triggers antes de la modificación
-    $disableTriggersQuery = "ALTER TABLE bd_hospital.hospital DISABLE TRIGGER ALL";
+    $disableTriggersQuery = "ALTER TABLE bd_hospital.pacientes DISABLE TRIGGER ALL";
     $disableTriggersResult = pg_query($conexion, $disableTriggersQuery);
 
     if (!$disableTriggersResult) {
@@ -18,15 +21,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Query para la modificación
-    $query_modificacion = "UPDATE bd_hospital.hospital 
-                           SET nombre = '$nombre_modificado', email = '$email_modificado', direccion = '$direccion_modificada'
-                           WHERE rfc_hospital = '$rfc_hospital_modificar'";
+    $query_modificacion = "UPDATE bd_hospital.pacientes 
+                           SET nombre = '$nombre_modificado', 
+                               apellido = '$apellido_modificado', 
+                               fec_nac = '$fec_nac_modificada', 
+                               sexo = '$sexo_modificado', 
+                               telefono = '$telefono_modificado', 
+                               direccion = '$direccion_modificada'
+                           WHERE id_paciente = '$id_paciente_modificar'";
 
     // Ejecutar la consulta de modificación
     $consulta_modificacion = pg_query($conexion, $query_modificacion);
 
     // Habilitar los triggers después de la modificación
-    $enableTriggersQuery = "ALTER TABLE bd_hospital.hospital ENABLE TRIGGER ALL";
+    $enableTriggersQuery = "ALTER TABLE bd_hospital.pacientes ENABLE TRIGGER ALL";
     $enableTriggersResult = pg_query($conexion, $enableTriggersQuery);
 
     if (!$enableTriggersResult) {
