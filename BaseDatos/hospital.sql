@@ -7,142 +7,14 @@ CREATE TABLE Hospital (
     email VARCHAR(30) UNIQUE NOT NULL CHECK (email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$')
 );
 
-CREATE TABLE hospital_Eliminado(id SERIAL NOT NULL,RFC_hospital varchar(13) 
-not null,nombre varchar(50) not null,insertado_el TIMESTAMP(6) NOT NULL);
-CREATE OR REPLACE FUNCTION hospital_Eliminado()
- RETURNS TRIGGER
- LANGUAGE PLPGSQL
- AS
-$$
-BEGIN
-       IF NEW.RFC_hospital is null  THEN
-             INSERT INTO hospital_Eliminado(RFC_hospital,nombre,insertado_el)
-             VALUES(OLD.RFC_hospital,OLD.nombre,now());
-       END IF;
-       
-       RETURN NEW;
-
-END;
-$$
-;
-CREATE OR REPLACE TRIGGER nombre_hospital_Eliminado
- AFTER DELETE
- ON hospital 
- FOR EACH ROW 
- EXECUTE PROCEDURE hospital_Eliminado();
-
-CREATE TABLE cambio_nombre_hospital(id SERIAL NOT NULL,RFC_hospital varchar(13) 
-not null,nombre varchar(50) not null,insertado_el TIMESTAMP(6) NOT NULL);
-CREATE OR REPLACE FUNCTION cambio_nombre_hospital()
- RETURNS TRIGGER
- LANGUAGE PLPGSQL
- AS
-$$
-BEGIN
-       IF NEW.nombre <> OLD.nombre THEN
-             INSERT INTO cambio_nombre_hospital(RFC_hospital,nombre,insertado_el)
-             VALUES(OLD.RFC_hospital,OLD.nombre,now());
-       END IF;
-       
-       RETURN NEW;
-
-END;
-$$
-;
-CREATE OR REPLACE TRIGGER nombre_cambiado_hospital
- BEFORE UPDATE
- ON hospital 
- FOR EACH ROW 
- EXECUTE PROCEDURE cambio_nombre_hospital();
-
-CREATE TABLE hospitales_nuevos(id SERIAL NOT NULL,RFC_hospital varchar(13) 
-not null,nombre varchar(50) not null,insertado_el TIMESTAMP(6) NOT NULL);
-CREATE OR REPLACE FUNCTION agregar_nuevo_hospital()
- RETURNS TRIGGER
- LANGUAGE PLPGSQL
- AS
-$$
-BEGIN
-       IF NEW.RFC_hospital is not null  THEN
-             INSERT INTO hospitales_nuevos(RFC_hospital,nombre,insertado_el)
-             VALUES(NEW.RFC_hospital,NEW.nombre,now());
-       END IF;
-       
-       RETURN NEW;
-
-END;
-$$
-;
-CREATE OR REPLACE TRIGGER nombre_nuevo_hospital
- BEFORE INSERT
- ON hospital 
- FOR EACH ROW 
- EXECUTE PROCEDURE agregar_nuevo_hospital();
 
 CREATE TABLE Pisos(
 No_Piso INT PRIMARY KEY,
 Hab_cama Varchar(10) NOT NULL,
 Especialidad VARCHAR (30) NOT NULL);
 
-# 1ra tabla
-CREATE TABLE nuevos_pisos (
-    id SERIAL NOT NULL,
-    No_Piso INT NOT NULL,
-    Hab_cama VARCHAR(10) NOT NULL,
-    Especialidad VARCHAR(30) NOT NULL,
-    insertado_el TIMESTAMP(6) NOT NULL
-);
-# 2da tabla
-CREATE TABLE eliminados_pisos (
-    Id SERIAL NOT NULL,
-    No_Piso INT NOT NULL,
-    Hab_cama VARCHAR(10) NOT NULL,
-    Especialidad VARCHAR(30) NOT NULL,
-    Eliminado_el TIMESTAMP(6) NOT NULL
-);
-# Funcion para Trigger Insertar
-CREATE OR REPLACE FUNCTION agregar_nuevo_piso()
-RETURNS TRIGGER
-LANGUAGE PLPGSQL
-AS $$
-BEGIN
-    IF NEW.No_Piso IS NOT NULL THEN
-        INSERT INTO nuevos_pisos (No_Piso, Hab_cama, Especialidad, insertado_el)
-        VALUES (NEW.No_Piso, NEW.Hab_cama, NEW.Especialidad, NOW());
-    END IF;
-    RETURN NEW;
-END;
-$$;
-#Trigger Insertar
-CREATE OR REPLACE TRIGGER trigger_nuevo_piso
-BEFORE INSERT
-ON Pisos
-FOR EACH ROW
-EXECUTE PROCEDURE agregar_nuevo_piso();
-
-
-# Funcion para Trigger eliminar
-CREATE OR REPLACE FUNCTION agregar_eliminado_piso()
-RETURNS TRIGGER
-LANGUAGE PLPGSQL
-AS $$
-BEGIN
-    IF OLD.No_Piso IS NOT NULL THEN
-        INSERT INTO eliminados_pisos (No_Piso, Hab_cama, Especialidad, eliminado_el)
-        VALUES (OLD.No_Piso, OLD.Hab_cama, OLD.Especialidad, NOW());
-    END IF;
-    RETURN OLD;
-END;
-$$;
-# Trigger eliminar
-CREATE OR REPLACE TRIGGER trigger_eliminado_piso
-AFTER DELETE
-ON Pisos
-FOR EACH ROW
-EXECUTE PROCEDURE agregar_eliminado_piso();
-
 CREATE TABLE Pacientes(
-Id_Paciente Serial NOT NULL PRIMARY KEY,
+Id_Paciente INT PRIMARY KEY,
 Nombre VARCHAR(20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Fec_Nac DATE NOT NULL,
@@ -155,81 +27,8 @@ RFC_HOSPITAL VARCHAR(13),
 FOREIGN KEY (No_Piso) REFERENCES Pisos(No_Piso),
 FOREIGN KEY (RFC_hospital) REFERENCES hospital(RFC_hospital));
 
-# 1ra tabla
-CREATE TABLE nuevos_pacientes (
-    Id SERIAL NOT NULL,
-    Id_Paciente INT NOT NULL,
-    Nombre VARCHAR(20) NOT NULL,
-    Apellido VARCHAR(20) NOT NULL,
-    Fec_Nac DATE NOT NULL,
-    Sexo VARCHAR(1) NOT NULL,
-    Telefono BIGINT NOT NULL,
-    Direccion VARCHAR(60) NOT NULL,
-    No_Piso INT,
-    RFC_HOSPITAL VARCHAR(13),
-    Insertado_el TIMESTAMP(6) NOT NULL
-);
-
-
-# 2da tabla
-CREATE TABLE eliminados_pacientes (
-    Id SERIAL NOT NULL,
-    Id_Paciente INT NOT NULL,
-    Nombre VARCHAR(20) NOT NULL,
-    Apellido VARCHAR(20) NOT NULL,
-    Fec_Nac DATE NOT NULL,
-    Sexo VARCHAR(1) NOT NULL,
-    Telefono BIGINT NOT NULL,
-    Direccion VARCHAR(60) NOT NULL,
-    No_Piso INT,
-    RFC_HOSPITAL VARCHAR(13),
-    Eliminado_el TIMESTAMP(6) NOT NULL
-);
-
-
-# Funcion para Trigger Insertar
-CREATE OR REPLACE FUNCTION agregar_nuevo_paciente()
-RETURNS TRIGGER
-LANGUAGE PLPGSQL
-AS $$
-BEGIN
-    IF NEW.Id_Paciente IS NOT NULL THEN
-        INSERT INTO nuevos_pacientes (Id_Paciente, Nombre, Apellido, Fec_Nac, Sexo, Telefono, Direccion, No_Piso, RFC_HOSPITAL, insertado_el)
-        VALUES (NEW.Id_Paciente, NEW.Nombre, NEW.Apellido, NEW.Fec_Nac, NEW.Sexo, NEW.Telefono, NEW.Direccion, NEW.No_Piso, NEW.RFC_HOSPITAL, NOW());
-    END IF;
-    RETURN NEW;
-END;
-$$;
-# Trigger Insertar
-CREATE OR REPLACE TRIGGER trigger_nuevo_paciente
-BEFORE INSERT
-ON Pacientes
-FOR EACH ROW
-EXECUTE PROCEDURE agregar_nuevo_paciente();
-
-
-# Funcion para Trigger eliminar
-CREATE OR REPLACE FUNCTION agregar_eliminado_paciente()
-RETURNS TRIGGER
-LANGUAGE PLPGSQL
-AS $$
-BEGIN
-    IF OLD.Id_Paciente IS NOT NULL THEN
-        INSERT INTO eliminados_pacientes (Id_Paciente, Nombre, Apellido, Fec_Nac, Sexo, Telefono, Direccion, No_Piso, RFC_HOSPITAL, eliminado_el)
-        VALUES (OLD.Id_Paciente, OLD.Nombre, OLD.Apellido, OLD.Fec_Nac, OLD.Sexo, OLD.Telefono, OLD.Direccion, OLD.No_Piso, OLD.RFC_HOSPITAL, NOW());
-    END IF;
-    RETURN OLD;
-END;
-$$;
-# Trigger eliminar
-CREATE OR REPLACE TRIGGER trigger_eliminado_paciente
-AFTER DELETE
-ON Pacientes
-FOR EACH ROW
-EXECUTE PROCEDURE agregar_eliminado_paciente();
-
 CREATE TABLE Responsable(
-Id_Responsable Serial NOT NULL PRIMARY KEY,
+Id_Responsable INT PRIMARY KEY,
 Nombre VARCHAR (20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Fec_Nac DATE NOT NULL,
@@ -240,7 +39,7 @@ RFC VARCHAR(12) NOT NULL,
 Id_paciente INT,
 FOREIGN KEY (Id_paciente) REFERENCES Pacientes(Id_paciente));
 
-<<<<<<< HEAD:querys/hospital.sql
+<<<<<<<<< Temporary merge branch 1:querys/hospital.sql
 # 1ra tabla
 CREATE TABLE nuevos_responsables (
     id SERIAL NOT NULL,
@@ -318,7 +117,7 @@ CREATE TABLE departamentos(
 Id_departamento INT PRIMARY KEY,
 Nombre VARCHAR(50) NOT NULL,
 Descripcion VARCHAR(100) NOT NULL);
-=======
+=========
 /*
 Departamentos id autoincrementable
 no se pueda repetir el nombre
@@ -329,11 +128,11 @@ CREATE TABLE departamentos (
     Descripcion VARCHAR(100) NOT NULL,
     CONSTRAINT nombre_unico UNIQUE (Nombre)
 );
->>>>>>> ramiro:BaseDatos/hospital.sql
+>>>>>>>>> Temporary merge branch 2:BaseDatos/hospital.sql
 
 
 CREATE TABLE Producto(
-Id_producto SERIAL NOT NULL PRIMARY KEY,
+Id_producto INT PRIMARY KEY,
 Nombre VARCHAR(30) NOT NULL,
 Precio FLOAT NOT NULL,
 Tipo VARCHAR (20) NOT NULL,
@@ -341,7 +140,7 @@ Marca VARCHAR(50) NOT NULL);
 
 
 CREATE TABLE Prod_entrada(
-ID_Prod_entrada SERIAL NOT NULL PRIMARY KEY,
+ID_Prod_entrada INT PRIMARY KEY,
 Lote VARCHAR(12) NOT NULL,
 Cantidad INT NOT NULL,
 F_cad DATE NOT NULL,
@@ -376,13 +175,13 @@ Id_departamento INT,
 FOREIGN KEY (Id_departamento) REFERENCES Departamentos(Id_departamento));
 
 CREATE TABLE proveedores(
-Id_proveedor SERIAL NOT NULL PRIMARY KEY,
+Id_proveedor INT PRIMARY KEY,
 empresa VARCHAR(30) NOT NULL,
 Id_producto INT,
 FOREIGN KEY (Id_producto) REFERENCES Producto(Id_producto));
 
 CREATE TABLE historial_cuenta_productos(
-Id_cuenta_prod SERIAL NOT NULL PRIMARY KEY,
+Id_cuenta_prod INT PRIMARY KEY,
 concepto VARCHAR(20) NOT NULL,
 fecha_cargo DATE NOT NULL,
 cantidad INT NOT NULL,
@@ -390,7 +189,7 @@ Id_producto INT,
 FOREIGN KEY (Id_producto) REFERENCES Producto(Id_producto));
 
 CREATE TABLE historial_cuenta_servicios(
-Id_cuenta_serv SERIAL NOT NULL PRIMARY KEY,
+Id_cuenta_serv INT PRIMARY KEY,
 concepto VARCHAR(30) NOT NULL,
 fecha_cargo DATE NOT NULL,
 cantidad INT NOT NULL,
@@ -398,7 +197,7 @@ Id_servicios INT,
 FOREIGN KEY (Id_servicios) REFERENCES Servicios(Id_servicio));
 
 CREATE TABLE facturacion(
-Id_factura SERIAL NOT NULL PRIMARY KEY,
+Id_factura INT PRIMARY KEY,
 fecha DATE NOT NULL,
 subtotal FLOAT NOT NULL,
 CFDI VARCHAR(40) NOT NULL,
@@ -412,7 +211,7 @@ historial_cuenta_servicios(Id_cuenta_serv),
 FOREIGN KEY (Id_responsable) REFERENCES responsable(Id_responsable));
 
 CREATE TABLE empleado(
-Id_empleado SERIAL NOT NULL PRIMARY KEY,
+Id_empleado INT PRIMARY KEY,
 Nombre VARCHAR(20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Puesto VARCHAR(20) NOT NULL,
@@ -445,7 +244,7 @@ Hemocomponentes(Id_hemocomponente));
 
 
 CREATE TABLE Mantenimiento_gral(
-Id_equipo SERIAL NOT NULL PRIMARY KEY,
+Id_equipo INT PRIMARY KEY,
 Nombre VARCHAR(30) NOT NULL,
 Cantidad INT NOT NULL,
 Fecha_mantenimiento DATE NOT NULL,
@@ -457,7 +256,7 @@ FOREIGN KEY (Id_departamento) REFERENCES Departamentos(Id_departamento));
 
 
 CREATE TABLE Orden_estudio(
-Id_orden SERIAL NOT NULL PRIMARY KEY,
+Id_orden INT PRIMARY KEY,
 Descripcion VARCHAR(20) NOT NULL,
 Id_estudio INT,
 Id_laboratorio INT,
@@ -482,7 +281,7 @@ FOREIGN KEY (Id_empleado) REFERENCES Empleado(Id_empleado));
 
 
 CREATE TABLE expediente(
-Id_expediente SERIAL NOT NULL PRIMARY KEY,
+Id_expediente INT PRIMARY KEY,
 Diagnosticos VARCHAR(50) NOT NULL,
 Tratamientos VARCHAR(50) NOT NULL,
 Intervenciones_quirurgicas VARCHAR(50) NOT NULL,
@@ -498,7 +297,7 @@ FOREIGN KEY (Id_departamento) REFERENCES departamentos(Id_departamento));
 
 
 
-<<<<<<< HEAD:querys/hospital.sql
+<<<<<<<<< Temporary merge branch 1:querys/hospital.sql
 CREATE TABLE expediente( 
     Id_expediente SERIAL NOT NULL, 
     Diagnosticos VARCHAR(50) NOT NULL, 
@@ -515,7 +314,7 @@ CREATE TABLE expediente(
     FOREIGN KEY (Id_paciente) REFERENCES pacientes(Id_paciente), 
     FOREIGN KEY (Id_departamento) REFERENCES departamentos(Id_departamento) 
 ) PARTITION BY RANGE (F_ingreso); 
-=======
+=========
 
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
@@ -547,7 +346,7 @@ Id_departamento INT,
 FOREIGN KEY (Id_paciente) REFERENCES pacientes(Id_paciente),
 FOREIGN KEY (Id_departamento) REFERENCES departamentos(Id_departamento))
 PARTITION BY RANGE (F_ingreso);
->>>>>>> ramiro:BaseDatos/hospital.sql
+>>>>>>>>> Temporary merge branch 2:BaseDatos/hospital.sql
 
 
 CREATE TABLE expediente_2020 PARTITION OF expediente FOR VALUES FROM ('2020-01-01')

@@ -14,7 +14,11 @@ $clave=$_POST['pass'];
 
 
 #hacemos la consulta a la tabla que contenga los usuarios
-$query=("SELECT * FROM usuarios 
+<<<<<<<<< Temporary merge branch 1
+$query=("set search_path to Hospital;SELECT * FROM usuarios 
+	WHERE usuario='$usuario' AND contrasena='$clave';");
+=========
+$query=("SELECT * FROM bd_hospital.usuarios 
 	WHERE usuario='$usuario' AND contrasena='$clave'");
 
 
