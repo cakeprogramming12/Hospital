@@ -53,7 +53,7 @@
                                         <td><?php  
   require '../conexionphp/conexion.php';
 
-    $query = "SELECT COUNT(*) AS total_registros FROM bd_hospital.departamentos";
+    $query = "SELECT COUNT(*) AS total_registros FROM hospital.departamentos";
     $consulta = pg_query($conexion, $query);
 
     if ($consulta) {
@@ -78,7 +78,7 @@
                                         <td><?php  
   require '../conexionphp/conexion.php';
 
-    $query = "SELECT COUNT(*) AS total_registros FROM bd_hospital.hospital";
+    $query = "SELECT COUNT(*) AS total_registros FROM hospital.hospital";
     $consulta = pg_query($conexion, $query);
 
     if ($consulta) {
@@ -100,7 +100,7 @@
                                         <td><?php  
   require '../conexionphp/conexion.php';
 
-    $query = "SELECT COUNT(*) AS total_registros FROM bd_hospital.empleado";
+    $query = "SELECT COUNT(*) AS total_registros FROM hospital.empleado";
     $consulta = pg_query($conexion, $query);
 
     if ($consulta) {
@@ -123,7 +123,7 @@
                                         <td><?php  
   require '../conexionphp/conexion.php';
 
-    $query = "SELECT COUNT(*) AS total_registros FROM bd_hospital.expediente";
+    $query = "SELECT COUNT(*) AS total_registros FROM hospital.expediente";
     $consulta = pg_query($conexion, $query);
 
     if ($consulta) {
@@ -148,7 +148,7 @@
                                         <td><?php  
   require '../conexionphp/conexion.php';
 
-    $query = "SELECT COUNT(*) AS total_registros FROM bd_hospital.transporte";
+    $query = "SELECT COUNT(*) AS total_registros FROM hospital.transporte";
     $consulta = pg_query($conexion, $query);
 
     if ($consulta) {
@@ -172,7 +172,7 @@
                                     <td><?php  
   require '../conexionphp/conexion.php';
 
-    $query = "SELECT COUNT(*) AS total_registros FROM bd_hospital.pisos";
+    $query = "SELECT COUNT(*) AS total_registros FROM hospital.pisos";
     $consulta = pg_query($conexion, $query);
 
     if ($consulta) {
@@ -194,7 +194,7 @@
                                     <td><?php  
   require '../conexionphp/conexion.php';
 
-    $query = "SELECT COUNT(*) AS total_registros FROM  bd_hospital.producto";
+    $query = "SELECT COUNT(*) AS total_registros FROM  hospital.producto";
     $consulta = pg_query($conexion, $query);
 
     if ($consulta) {
@@ -215,7 +215,7 @@
                                     <td><?php  
   require '../conexionphp/conexion.php';
 
-    $query = "SELECT COUNT(*) AS total_registros FROM  bd_hospital.proveedores";
+    $query = "SELECT COUNT(*) AS total_registros FROM  hospital.proveedores";
     $consulta = pg_query($conexion, $query);
 
     if ($consulta) {
@@ -238,7 +238,7 @@
                                     <td><?php  
   require '../conexionphp/conexion.php';
 
-    $query = "SELECT COUNT(*) AS total_registros FROM  bd_hospital.usuarios";
+    $query = "SELECT COUNT(*) AS total_registros FROM  hospital.usuarios";
     $consulta = pg_query($conexion, $query);
 
     if ($consulta) {

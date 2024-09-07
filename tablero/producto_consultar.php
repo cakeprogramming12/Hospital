@@ -1,27 +1,34 @@
 <?php
 require '../conexionphp/conexion.php';
 
-$id = $_POST['id_departamento_consultar'];
+$id = $_POST['id_producto_consultar'];
 $consultar_nombre = isset($_POST['consultar_nombre']) ? true : false;
-$consultar_descripcion = isset($_POST['consultar_descripcion']) ? true : false;
+$consultar_precio = isset($_POST['consultar_precio']) ? true : false;
+$consultar_tipo = isset($_POST['consultar_tipo']) ? true : false;
+$consultar_marca = isset($_POST['consultar_marca']) ? true : false;
 
 // Construir la lista de columnas a seleccionar
 $columnas_seleccionadas = [];
 if ($consultar_nombre) {
     $columnas_seleccionadas[] = 'nombre';
 }
-if ($consultar_descripcion) {
-    $columnas_seleccionadas[] = 'descripcion';
+if ($consultar_precio) {
+    $columnas_seleccionadas[] = 'precio';
 }
-
+if ($consultar_tipo) {
+    $columnas_seleccionadas[] = 'tipo';
+}
+if ($consultar_marca) {
+    $columnas_seleccionadas[] = 'marca';
+}
 // Si no se selecciona ninguna columna, mostrar todas
 if (empty($columnas_seleccionadas)) {
-    $columnas_seleccionadas = ['id_departamento', 'nombre', 'descripcion'];
+    $columnas_seleccionadas = ['id_producto', 'nombre', 'precio', 'tipo', 'marca'];
 }
 
 // Construir la consulta
 $columnas_query = implode(", ", $columnas_seleccionadas);
-$query = "SELECT $columnas_query FROM hospital.departamentos WHERE id_departamento = $id";
+$query = "SELECT $columnas_query FROM hospital.producto WHERE id_producto = $id";
 
 // Ejecutar la consulta
 $consulta = pg_query($conexion, $query);

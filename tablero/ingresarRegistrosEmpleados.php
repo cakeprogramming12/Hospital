@@ -38,7 +38,7 @@ function generarRegistros($conexion) {
         ];
 
         // Insertar el registro en la base de datos
-        $query = "INSERT INTO bd_hospital.empleado (nombre, apellido, puesto, turno, id_departamento) VALUES ('$registro[nombre]', '$registro[apellido]', '$registro[puesto]', '$registro[turno]', $registro[id_departamento])";
+        $query = "INSERT INTO hospital.empleado (nombre, apellido, puesto, turno, id_departamento) VALUES ('$registro[nombre]', '$registro[apellido]', '$registro[puesto]', '$registro[turno]', $registro[id_departamento])";
         $result = pg_query($conexion, $query);
 
         if (!$result) {

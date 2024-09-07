@@ -11,7 +11,7 @@ function generarEmpresa() {
 // Función para obtener un ID de producto existente
 function obtenerIdProducto($conexion) {
     // Realiza una consulta para obtener un ID de producto existente
-    $query = "SELECT id_producto FROM bd_hospital.producto ORDER BY RANDOM() LIMIT 1";
+    $query = "SELECT id_producto FROM hospital.producto ORDER BY RANDOM() LIMIT 1";
     $result = pg_query($conexion, $query);
 
     if ($row = pg_fetch_assoc($result)) {
@@ -23,7 +23,7 @@ function obtenerIdProducto($conexion) {
 }
 
 // Desactivar triggers
-$queryDesactivarTriggers = "ALTER TABLE bd_hospital.proveedores DISABLE TRIGGER ALL";
+$queryDesactivarTriggers = "ALTER TABLE hospital.proveedores DISABLE TRIGGER ALL";
 pg_query($conexion, $queryDesactivarTriggers);
 
 // Función para generar un millón de registros
@@ -35,7 +35,7 @@ function generarRegistrosProveedores($conexion) {
         ];
 
         // Insertar el registro en la base de datos
-        $query = "INSERT INTO bd_hospital.proveedores (empresa, id_producto) VALUES ('$registro[empresa]', $registro[id_producto])";
+        $query = "INSERT INTO hospital.proveedores (empresa, id_producto) VALUES ('$registro[empresa]', $registro[id_producto])";
         $result = pg_query($conexion, $query);
 
         if (!$result) {
@@ -52,7 +52,7 @@ if (isset($_POST['insertar_registros_proveedores'])) {
 }
 
 // Activar triggers nuevamente
-$queryActivarTriggers = "ALTER TABLE bd_hospital.proveedores ENABLE TRIGGER ALL";
+$queryActivarTriggers = "ALTER TABLE hospital.proveedores ENABLE TRIGGER ALL";
 pg_query($conexion, $queryActivarTriggers);
 
 // Cerrar la conexión

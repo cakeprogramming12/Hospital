@@ -82,6 +82,13 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="producto.php" class="nav-link" style="cursor: pointer;">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Producto</p>
+                            </a>
+                        </li>
+
                     </ul>
 
                 </li>

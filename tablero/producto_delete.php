@@ -2,19 +2,16 @@
 require '../conexionphp/conexion.php';
 
 // Obtener el ID del departamento a eliminar
-$id = $_REQUEST['id_departamento'];
+$id = $_REQUEST['id_producto'];
 
 // Utilizar consultas preparadas para evitar inyecciones SQL
-$query = "DELETE FROM hospital.departamentos WHERE Id_departamento = $1";
+$query = "set search_path to hospital; DELETE FROM hospital.producto WHERE id_producto = '$id'";
 
 // Preparar la consulta
-$consulta = pg_prepare($conexion, "eliminar_departamento", $query);
-
-// Ejecutar la consulta con el ID como parámetro
-$resultado = pg_execute($conexion, "eliminar_departamento", array($id));
+$consulta = pg_query($conexion, $query);
 
 // Redirigir a mensaje.php con el resultado de la consulta
-if ($resultado) {
+if ($consulta) {
     // Éxito: Redirigir a mensaje.php con mensaje de éxito y consulta
     $mensaje_exito = 'Registro eliminado correctamente';
     header("Location: mensaje.php?mensaje=success&mensaje_text=$mensaje_exito&consulta=".urlencode($query));

@@ -10,18 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $telefono_modificado = pg_escape_string($_POST['telefono_modificado']);
     $direccion_modificada = pg_escape_string($_POST['direccion_modificada']);
 
-    // Deshabilitar los triggers antes de la modificación
-    $disableTriggersQuery = "ALTER TABLE bd_hospital.pacientes DISABLE TRIGGER ALL";
-    $disableTriggersResult = pg_query($conexion, $disableTriggersQuery);
-
-    if (!$disableTriggersResult) {
-        // Manejar el error si la deshabilitación de triggers falla
-        echo "Error al deshabilitar los triggers: " . pg_last_error($conexion);
-        exit();
-    }
-
     // Query para la modificación
-    $query_modificacion = "UPDATE bd_hospital.pacientes 
+    $query_modificacion = "UPDATE hospital.pacientes 
                            SET nombre = '$nombre_modificado', 
                                apellido = '$apellido_modificado', 
                                fec_nac = '$fec_nac_modificada', 
@@ -32,16 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Ejecutar la consulta de modificación
     $consulta_modificacion = pg_query($conexion, $query_modificacion);
-
-    // Habilitar los triggers después de la modificación
-    $enableTriggersQuery = "ALTER TABLE bd_hospital.pacientes ENABLE TRIGGER ALL";
-    $enableTriggersResult = pg_query($conexion, $enableTriggersQuery);
-
-    if (!$enableTriggersResult) {
-        // Manejar el error si la habilitación de triggers falla
-        echo "Error al habilitar los triggers: " . pg_last_error($conexion);
-        exit();
-    }
 
     // Redirigir a mensaje.php con el resultado de la consulta de modificación
     if ($consulta_modificacion) {

@@ -6,7 +6,7 @@ $nombre_modificado = $_POST['nombre_modificado'];
 $descripcion_modificada = $_POST['descripcion_modificada'];
 
 // Deshabilitar triggers antes de la consulta
-$queryDisableTriggers = "ALTER TABLE bd_hospital.departamentos DISABLE TRIGGER ALL";
+$queryDisableTriggers = "ALTER TABLE hospital.departamentos DISABLE TRIGGER ALL";
 $disableTriggers = pg_query($conexion, $queryDisableTriggers);
 
 // Verificar si se deshabilitaron los triggers correctamente
@@ -18,10 +18,10 @@ if (!$disableTriggers) {
 }
 
 // Query para la modificación
-$query = "UPDATE bd_hospital.departamentos SET nombre = '$nombre_modificado', descripcion = '$descripcion_modificada' WHERE id_departamento = $id_modificar";
+$query = "UPDATE hospital.departamentos SET nombre = '$nombre_modificado', descripcion = '$descripcion_modificada' WHERE id_departamento = $id_modificar";
 
 // Habilitar triggers después de la consulta
-$queryEnableTriggers = "ALTER TABLE bd_hospital.departamentos ENABLE TRIGGER ALL";
+$queryEnableTriggers = "ALTER TABLE hospital.departamentos ENABLE TRIGGER ALL";
 $enableTriggers = pg_query($conexion, $queryEnableTriggers);
 
 // Verificar si se habilitaron los triggers correctamente

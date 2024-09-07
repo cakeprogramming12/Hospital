@@ -19,7 +19,6 @@ Nombre VARCHAR(20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 Fec_Nac DATE NOT NULL,
 Sexo VARCHAR(1) NOT NULL,
-
 Telefono BIGINT NOT NULL,
 Direccion VARCHAR(60) NOT NULL,
 No_piso INT,
@@ -50,9 +49,17 @@ CREATE TABLE departamentos (
     CONSTRAINT nombre_unico UNIQUE (Nombre)
 );
 
+CREATE TABLE empleado(
+Id_empleado INT PRIMARY KEY,
+Nombre VARCHAR(20) NOT NULL,
+Apellido VARCHAR(20) NOT NULL,
+Puesto VARCHAR(20) NOT NULL,
+Turno VARCHAR(15) NOT NULL,
+Id_departamento INT,
+FOREIGN KEY (Id_departamento) REFERENCES Departamentos(Id_departamento));
 
 CREATE TABLE Producto(
-Id_producto INT PRIMARY KEY,
+Id_producto SERIAL PRIMARY KEY,
 Nombre VARCHAR(30) NOT NULL,
 Precio FLOAT NOT NULL,
 Tipo VARCHAR (20) NOT NULL,
@@ -130,16 +137,6 @@ FOREIGN KEY (Id_cuenta_serv) REFERENCES
 historial_cuenta_servicios(Id_cuenta_serv),
 FOREIGN KEY (Id_responsable) REFERENCES responsable(Id_responsable));
 
-CREATE TABLE empleado(
-Id_empleado INT PRIMARY KEY,
-Nombre VARCHAR(20) NOT NULL,
-Apellido VARCHAR(20) NOT NULL,
-Puesto VARCHAR(20) NOT NULL,
-Turno VARCHAR(15) NOT NULL,
-Id_departamento INT,
-FOREIGN KEY (Id_departamento) REFERENCES Departamentos(Id_departamento));
-
-
 CREATE TABLE imagenologia(
 Id_estudio INT PRIMARY KEY,
 Tipo VARCHAR(20) NOT NULL,
@@ -200,22 +197,6 @@ FOREIGN KEY (Placa) REFERENCES Transporte(Placa),
 FOREIGN KEY (Id_empleado) REFERENCES Empleado(Id_empleado));
 
 
-CREATE TABLE expediente(
-Id_expediente INT PRIMARY KEY,
-Diagnosticos VARCHAR(50) NOT NULL,
-Tratamientos VARCHAR(50) NOT NULL,
-Intervenciones_quirurgicas VARCHAR(50) NOT NULL,
-Sintomas VARCHAR (50) NOT NULL,
-Antecedentes VARCHAR(100) NOT NULL,
-F_ingreso DATE NOT NULL,
-                      F_egreso DATE,
-Descripcion VARCHAR(150) NOT NULL,
-Id_paciente INT,
-Id_departamento INT,
-FOREIGN KEY (Id_paciente) REFERENCES pacientes(Id_paciente),
-FOREIGN KEY (Id_departamento) REFERENCES departamentos(Id_departamento));
-
-
 /*
 Cree la tabla usuarios
 */
@@ -227,9 +208,7 @@ CREATE TABLE usuarios (
     contrasena VARCHAR(255) NOT NULL
 );
 
-INSERT INTO usuarios (usuario, contrasena) VALUES ('ramiro', '123');
-
-
+INSERT INTO usuarios (usuario, contrasena) VALUES ('Luis', '7109');
 
 
 
@@ -237,7 +216,7 @@ INSERT INTO usuarios (usuario, contrasena) VALUES ('ramiro', '123');
 Particiones nicoles
 */
 CREATE TABLE expediente(
-Id_expediente INT PRIMARY KEY,
+Id_expediente INT,
 Diagnosticos VARCHAR(50) NOT NULL,
 Tratamientos VARCHAR(50) NOT NULL,
 Intervenciones_quirurgicas VARCHAR(50) NOT NULL,
@@ -248,6 +227,7 @@ F_egreso DATE,
 Descripcion VARCHAR(150) NOT NULL,
 Id_paciente INT,
 Id_departamento INT,
+PRIMARY KEY (Id_expediente, F_ingreso),
 FOREIGN KEY (Id_paciente) REFERENCES pacientes(Id_paciente),
 FOREIGN KEY (Id_departamento) REFERENCES departamentos(Id_departamento))
 PARTITION BY RANGE (F_ingreso);
@@ -261,21 +241,3 @@ CREATE TABLE expediente_2022 PARTITION OF expediente FOR VALUES FROM ('2022-01-0
 TO ('2022-12-31');
 CREATE TABLE expediente_2023 PARTITION OF expediente FOR VALUES FROM ('2023-01-01')
 TO ('2023-12-31');
-
-
-
-CREATE FUNCTION FK_Update() RETURNS TRIGGER
-as
-$$
-BEGIN
-UPDATE pacientes
-SET rfc_hospital = new.rfc_hospital;
-return new;
-END
-$$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER Tr_Update_RFC_H AFTER UPDATE ON hospital
-FOR EACH ROW
-EXECUTE PROCEDURE FK_Update();
-

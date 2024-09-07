@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrar departamentos</title>
+    <title>Administrar Productos</title>
     <!-- Agregamos la hoja de estilos de Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
@@ -19,7 +19,7 @@
     <header>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Administrar Departamentos</a>
+            <a class="navbar-brand" href="#">Administrar Productos</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -30,7 +30,7 @@
                         <a class="nav-link" href="tablero.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Gestor departamentos</a>
+                        <a class="nav-link active" href="#">Gestor Productos</a>
                     </li>
                 </ul>
             </div>
@@ -40,22 +40,15 @@
     <main class="container mt-4">
         <div class="row">
 
-            <!-- Agregar Departamento -->
+            <!-- Agregar Producto -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        <h3 class="card-title">Agregar Departamento</h3>
+                        <h3 class="card-title">Agregar Producto</h3>
                     </div>
                     <div class="card-body">
 
-                        <form action="departamentos_alta.php" method="post">
-
-                            <div class="form-group">
-                                <label for="nombre">ID:</label>
-                                <input type="text" name="id_departamento" class="form-control" required>
-                            </div>
-
-
+                        <form action="producto_alta.php" method="post">
 
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
@@ -63,38 +56,48 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="descripcion">Descripción:</label>
-                                <textarea name="descripcion" class="form-control" required></textarea>
+                                <label for="precio">Precio:</label>
+                                <input type="text" name="precio" class="form-control" required>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Agregar Departamento</button>
+                            <div class="form-group">
+                                <label for="tipo">Tipo:</label>
+                                <textarea name="tipo" class="form-control" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="marca">Marca:</label>
+                                <textarea name="marca" class="form-control" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Agregar Producto</button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- Eliminar Departamento -->
+            <!-- Eliminar Producto -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header bg-danger text-white">
-                        <h3 class="card-title">Eliminar Departamento</h3>
+                        <h3 class="card-title">Eliminar Producto</h3>
                     </div>
                     <div class="card-body">
-                        <form action="departamentos_delete.php" method="post">
+                        <form action="producto_delete.php" method="post">
 
 
                             <div class="form-group">
-                                <label for="id_departamento_eliminar">Nombre del departamento</label>
-                                <select name="id_departamento" class="form-control">
+                                <label for="id_producto_eliminar">Nombre del Producto</label>
+                                <select name="id_producto" class="form-control">
 
                                     <?php  
                                 require '../conexionphp/conexion.php';
-                                $query=("SELECT id_departamento, nombre FROM hospital.departamentos");
+                                $query=("SELECT id_producto, nombre FROM hospital.producto");
                                 $consulta = pg_query($conexion, $query);
 
                                 while($obj=pg_fetch_object($consulta)){ ?>
 
-                                    <option value="<?php echo $obj->id_departamento ?>"><?php echo $obj->nombre?>
+                                    <option value="<?php echo $obj->id_producto?>"><?php echo $obj->nombre?>
                                     </option>
                                     <?php
                                 }
@@ -103,31 +106,31 @@
                             </div>
 
 
-                            <button type="submit" class="btn btn-danger">Eliminar Departamento</button>
+                            <button type="submit" class="btn btn-danger">Eliminar Producto</button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- Modificar Departamento -->
+            <!-- Modificar Producto -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header bg-warning text-white">
-                        <h3 class="card-title">Modificar Departamento</h3>
+                        <h3 class="card-title">Modificar Producto</h3>
                     </div>
                     <div class="card-body">
-                        <form action="departamentos_modificar.php" method="post">
+                        <form action="producto_modificar.php" method="post">
                             <div class="form-group">
-                                <label for="id_departamento_modificar">Nombre del departamento</label>
-                                <select name="id_departamento_modificar" class="form-control" required>
+                                <label for="id_producto_modificar">Nombre del Producto</label>
+                                <select name="id_producto_modificar" class="form-control" required>
                                     <?php  
                             require '../conexionphp/conexion.php';
-                            $query = "SELECT id_departamento, nombre FROM hospital.departamentos";
+                            $query = "SELECT id_producto, nombre FROM hospital.producto";
                             $consulta = pg_query($conexion, $query);
 
                             while($obj = pg_fetch_object($consulta)) { 
                         ?>
-                                    <option value="<?php echo $obj->id_departamento ?>"><?php echo $obj->nombre ?>
+                                    <option value="<?php echo $obj->id_producto?>"><?php echo $obj->nombre ?>
                                     </option>
                                     <?php } ?>
                                 </select>
@@ -137,34 +140,42 @@
                                 <input type="text" name="nombre_modificado" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="descripcion_modificada">Nueva Descripción:</label>
-                                <textarea name="descripcion_modificada" class="form-control" required></textarea>
+                                <label for="precio_modificada">Nuevo Precio:</label>
+                                <textarea name="precio_modificada" class="form-control" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-warning text-white">Modificar Departamento</button>
+                            <div class="form-group">
+                                <label for="tipo_modificada">Nuevo Tipo:</label>
+                                <textarea name="tipo_modificada" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="marca_modificada">Nueva Marca:</label>
+                                <textarea name="marca_modificada" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-warning text-white">Modificar Producto</button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- Consultar Departamento -->
+            <!-- Consultar Producto -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header bg-info text-white">
-                        <h3 class="card-title">Consultar Departamento</h3>
+                        <h3 class="card-title">Consultar Producto</h3>
                     </div>
                     <div class="card-body">
-                        <form action="departamentos_consultar.php" method="post">
+                        <form action="producto_consultar.php" method="post">
                             <div class="form-group">
-                                <label for="id_departamento_consultar">Nombre del departamento</label>
-                                <select name="id_departamento_consultar" class="form-control" required>
+                                <label for="id_producto_consultar">Nombre del Producto</label>
+                                <select name="id_producto_consultar" class="form-control" required>
                                     <?php  
                         require '../conexionphp/conexion.php';
-                        $query = "SELECT id_departamento, nombre FROM hospital.departamentos";
+                        $query = "SELECT id_producto, nombre FROM hospital.producto";
                         $consulta = pg_query($conexion, $query);
 
                         while($obj = pg_fetch_object($consulta)) { 
                         ?>
-                                    <option value="<?php echo $obj->id_departamento ?>"><?php echo $obj->nombre ?>
+                                    <option value="<?php echo $obj->id_producto ?>"><?php echo $obj->nombre ?>
                                     </option>
                                     <?php } ?>
                                 </select>
@@ -176,12 +187,22 @@
                                     <label class="form-check-label">Nombre</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="consultar_descripcion"
-                                        value="1">
-                                    <label class="form-check-label">Descripción</label>
+                                    <input class="form-check-input" type="checkbox" name="consultar_precio"
+                                    value="1">
+                                    <label class="form-check-label">Precio</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="consultar_tipo"
+                                    value="1">
+                                    <label class="form-check-label">Tipo</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="consultar_marca"
+                                    value="1">
+                                    <label class="form-check-label">Marca</label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info text-white">Consultar Departamento</button>
+                            <button type="submit" class="btn btn-info text-white">Consultar Marca</button>
                         </form>
                     </div>
                 </div>

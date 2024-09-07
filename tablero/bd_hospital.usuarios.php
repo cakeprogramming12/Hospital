@@ -15,28 +15,22 @@ function generarContrasena() {
 }
 
 // Desactivar triggers
-$queryDesactivarTriggers = "ALTER TABLE bd_hospital.usuarios DISABLE TRIGGER ALL";
+$queryDesactivarTriggers = "ALTER TABLE hospital.usuarios DISABLE TRIGGER ALL";
 pg_query($conexion, $queryDesactivarTriggers);
 
 // Función para generar registros de usuarios en lotes
-function generarRegistrosUsuarios($conexion, $batchSize = 1000) {
-    for ($i = 1; $i <= 1000000; $i += $batchSize) {
+function generarRegistrosUsuarios($conexion, $batchSize=2) {
+    for ($i = 1; $i <= 2; $i += $batchSize) {
         $registros = [];
         for ($j = 0; $j < $batchSize; $j++) {
             $registros[] = [
                 'usuario' => generarUsuario(),
-                'contrasena' => generarContrasena(),
+                'contrasena' => generarUsuario()
             ];
         }
 
-        // Construir la consulta de inserción
-        $values = implode(', ', array_map(function ($registro) {
-            return "('" . $registro['usuario'] . "', '" . $registro['contrasena'] . "')";
-        }, $registros));
-
-        $query = "INSERT INTO bd_hospital.usuarios (usuario, contrasena) VALUES $values";
+$query = "INSERT INTO hospital.usuarios(usuario,contrasena) VALUES ('$registros[usuario]', '$registros[contrasena]');";
         $result = pg_query($conexion, $query);
-
         if (!$result) {
             die("Error al insertar el lote de registros: " . pg_last_error($conexion));
         }
@@ -51,7 +45,7 @@ if (isset($_POST['insertar_registros_usuarios'])) {
 }
 
 // Activar triggers nuevamente
-$queryActivarTriggers = "ALTER TABLE bd_hospital.usuarios ENABLE TRIGGER ALL";
+$queryActivarTriggers = "ALTER TABLE hospital.usuarios ENABLE TRIGGER ALL";
 pg_query($conexion, $queryActivarTriggers);
 
 // Cerrar la conexión
