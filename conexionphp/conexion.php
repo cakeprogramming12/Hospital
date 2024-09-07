@@ -13,5 +13,3 @@ $conexion=pg_connect("host=$host dbname=$bd user=$user password=$pass");
 $query=("\c hospital");
 
 ?> 
-
-C:\Program Files\Sublime Text\subl.exe
